@@ -4,14 +4,18 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>七夕 | xtaq blog</title>
+    <title>leetcode 142 Linked List Cycle II | xtaq blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="xiang tong">
     
-    <meta name="description" content="今天七夕，首先祝亲爱的七夕快乐。今天也是我这个博客开张之日，仅以此纪念我们的爱情。  
-
-一直一直走下去，直到天荒地老。">
+    <meta name="description" content="Linked List Cycle II
+返回一个有环链表的环的头部，若没有环则返回空。
+思路  
+使用快慢指针，
+fast每次前进两步(若两步中出现NULL，则返回NULL).
+slow每次前进一步(若出现NULL，则返回NULL).
+当出现环路，则总有某时刻，fast会赶上slow（相遇），证明">
     
     
     
@@ -67,15 +71,15 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/08/20/七夕/" title="七夕" itemprop="url">七夕</a>
+      <a href="/2015/08/22/leetcode-141-Linked-List-Cycle-II/" title="leetcode 142 Linked List Cycle II" itemprop="url">leetcode 142 Linked List Cycle II</a>
   </h1>
   <p class="article-author">By
     
       <a href="http://yoursite.com" title="xiang tong">xiang tong</a>
     </p>
   <p class="article-time">
-    <time datetime="2015-08-20T02:50:08.000Z" itemprop="datePublished">2015-08-20</time>
-    更新日期:<time datetime="2015-08-20T02:58:16.000Z" itemprop="dateModified">2015-08-20</time>
+    <time datetime="2015-08-22T13:52:06.000Z" itemprop="datePublished">2015-08-22</time>
+    更新日期:<time datetime="2015-08-22T13:57:56.000Z" itemprop="dateModified">2015-08-22</time>
     
   </p>
 </header>
@@ -87,25 +91,45 @@
 		
 		</div>
 		
-		<p>今天七夕，首先祝亲爱的七夕快乐。<br>今天也是我这个博客开张之日，仅以此纪念我们的爱情。  </p>
-<blockquote>
-<p>一直一直走下去，直到天荒地老。</p>
-</blockquote>
-  
+		<p><strong>Linked List Cycle II</strong></p>
+<p>返回一个有环链表的环的头部，若没有环则返回空。</p>
+<p><strong>思路</strong>  </p>
+<p>使用快慢指针，</p>
+<p>fast每次前进两步(若两步中出现NULL，则返回NULL).</p>
+<p>slow每次前进一步(若出现NULL，则返回NULL).</p>
+<p>当出现环路，则总有某时刻，fast会赶上slow（相遇），证明如下：</p>
+<p>1、若fast套slow圈之前在slow后方两步，则fast2slow1之后，fast在slow后方一步，进入(2)</p>
+<p>2、若fast套slow圈之前在slow后方一步，则fast2slow1之后，fast追上slow（相遇）</p>
+<p>其他情况均可化归到以上两步。</p>
+<p>假设从head到环入口entry步数为x，环路长度为y，相遇时离entry的距离为m</p>
+<p>则fast：x+ay+m，slow：x+by+m  (a &gt; b)</p>
+<p>x+ay+m = 2(x+by+m)</p>
+<p>整理得x+m = (a-2b)y</p>
+<p>以上式子的含义是，相遇时的位置(m)再前进x步，正好是y的整倍数即整圈。</p>
+<p>现在的问题是怎样计数x。</p>
+<p>利用head到entry的长度为x，只要fast从head每次前进一步，slow从相遇位置每次前进一步，</p>
+<p>再次相遇的时候即环的入口。  </p>
+<p><strong>python代码</strong>  </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"># class ListNode(object):</span></span><br><span class="line"><span class="comment">#     def __init__(self, x):</span></span><br><span class="line"><span class="comment">#         self.val = x</span></span><br><span class="line"><span class="comment">#         self.next = None</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">detectCycle</span><span class="params">(self, head)</span>:</span></span><br><span class="line">        <span class="string">"""</span><br><span class="line">        :type head: ListNode</span><br><span class="line">        :rtype: ListNode</span><br><span class="line">        """</span></span><br><span class="line">        slow = head</span><br><span class="line">        fast = head</span><br><span class="line">        <span class="keyword">while</span> slow <span class="keyword">and</span> fast <span class="keyword">and</span> fast.next:</span><br><span class="line">            slow = slow.next</span><br><span class="line">            fast = fast.next.next</span><br><span class="line">            <span class="keyword">if</span> slow == fast:</span><br><span class="line">                fast = head</span><br><span class="line">                <span class="keyword">while</span> fast != slow:</span><br><span class="line">                    fast = fast.next</span><br><span class="line">                    slow = slow.next</span><br><span class="line">                <span class="keyword">return</span> slow</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">None</span></span><br></pre></td></tr></table></figure>  
 	</div>
 		<footer class="article-footer clearfix">
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/随想/">随想</a>
+  <span></span> <a href="/tags/algorithm/">algorithm</a><a href="/tags/python/">python</a>
   </div>
 
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/leetcode/">leetcode</a>
+</div>
 
 
 
 <div class="article-share" id="share">
 
-  <div data-url="http://yoursite.com/2015/08/20/七夕/" data-title="七夕 | xtaq blog" data-tsina="null" class="share clearfix">
+  <div data-url="http://yoursite.com/2015/08/22/leetcode-141-Linked-List-Cycle-II/" data-title="leetcode 142 Linked List Cycle II | xtaq blog" data-tsina="null" class="share clearfix">
   </div>
 
 </div>
@@ -114,19 +138,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2015/08/22/leetcode-141-Linked-List-Cycle/" title="leetcode 141 Linked List Cycle">
-  <strong>PREVIOUS:</strong><br/>
-  <span>
-  leetcode 141 Linked List Cycle</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2015/08/20/newstart/"  title="newstart">
+<a href="/2015/08/22/leetcode-141-Linked-List-Cycle/"  title="leetcode 141 Linked List Cycle">
  <strong>NEXT:</strong><br/> 
- <span>newstart
+ <span>leetcode 141 Linked List Cycle
 </span>
 </a>
 </div>
