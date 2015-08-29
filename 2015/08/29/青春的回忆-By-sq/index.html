@@ -4,17 +4,12 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>leetcode 141 Linked List Cycle | xtaq blog</title>
+    <title>青春的回忆 By sq | xtaq blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="xiang tong">
     
-    <meta name="description" content="Linked List Cycle
- 判断一个链表是否有环
-思路
-建立两个指针，一个每次走一步，一个每次走两步，如果链表有环，两个指针在走过一定次数后会相遇。
-python代码 
-123456789101112131415161718192021# Definition for singly-lin">
+    <meta name="description" content="刚刚看完了《阳光姐妹淘》，在很久之前就有很多人在推荐这个电影，今天才用心的看完，看完这个就想着，每个人的一生中都有一段这样的时光，不一定都跟电影里面一样的精彩，但是他也足够给你留下深刻的印象。这个电影中的每个人身上都有不同的性格特征，也都是非常的明显。她们能走到一起不是只是为了结伙打架，她们身上也有">
     
     
     
@@ -70,15 +65,15 @@ python代码
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/08/22/leetcode-141-Linked-List-Cycle/" title="leetcode 141 Linked List Cycle" itemprop="url">leetcode 141 Linked List Cycle</a>
+      <a href="/2015/08/29/青春的回忆-By-sq/" title="青春的回忆 By sq" itemprop="url">青春的回忆 By sq</a>
   </h1>
   <p class="article-author">By
     
       <a href="http://yoursite.com" title="xiang tong">xiang tong</a>
     </p>
   <p class="article-time">
-    <time datetime="2015-08-22T10:10:17.000Z" itemprop="datePublished">2015-08-22</time>
-    更新日期:<time datetime="2015-08-22T10:30:17.000Z" itemprop="dateModified">2015-08-22</time>
+    <time datetime="2015-08-29T15:46:46.000Z" itemprop="datePublished">2015-08-29</time>
+    更新日期:<time datetime="2015-08-29T15:50:14.000Z" itemprop="dateModified">2015-08-29</time>
     
   </p>
 </header>
@@ -90,32 +85,33 @@ python代码
 		
 		</div>
 		
-		<p><strong>Linked List Cycle</strong></p>
-<p> 判断一个链表是否有环</p>
-<p><strong>思路</strong></p>
-<p>建立两个指针，一个每次走一步，一个每次走两步，如果链表有环，两个指针在走过一定次数后会相遇。</p>
-<p><strong>python代码</strong> </p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"># class ListNode(object):</span></span><br><span class="line"><span class="comment">#     def __init__(self, x):</span></span><br><span class="line"><span class="comment">#         self.val = x</span></span><br><span class="line"><span class="comment">#         self.next = None</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">hasCycle</span><span class="params">(self, head)</span>:</span></span><br><span class="line">        <span class="string">"""</span><br><span class="line">        :type head: ListNode</span><br><span class="line">        :rtype: bool</span><br><span class="line">        """</span></span><br><span class="line">        self.slow = head</span><br><span class="line">        self.fast = head</span><br><span class="line">        <span class="keyword">while</span> self.slow <span class="keyword">and</span> self.fast <span class="keyword">and</span> self.fast.next:</span><br><span class="line">            self.slow = self.slow.next</span><br><span class="line">            self.fast = self.fast.next.next</span><br><span class="line">            <span class="keyword">if</span> self.slow == self.fast:</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">True</span></span><br><span class="line">                </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">False</span></span><br></pre></td></tr></table></figure>
+		<p>刚刚看完了《阳光姐妹淘》，在很久之前就有很多人在推荐这个电影，今天才用心的看完，看完这个就想着，每个人的一生中都有一段这样的时光，不一定都跟电影里面一样的精彩，但是他也足够给你留下深刻的印象。<br>这个电影中的每个人身上都有不同的性格特征，也都是非常的明显。她们能走到一起不是只是为了结伙打架，她们身上也有相同的追求。很多都说男生之间才会有兄弟的义气，为朋友两肋插刀，但是我们从这部电影中能明显的看到女生这件的这种感情一点都不比男生弱。其实这一点也是这个电影的看点。</p>
+<p>这部电影除了这个最让我们感动的就是她们的感情，不然人们为什么说高中的时候的感情才是最真实的，在初中都还不懂事，在大学我们又掺杂了太多不该有的东西。高中就刚刚的好。我现在马上大学毕业了，对于高中的同学的感情确实是不一样的。我很喜欢跟高中的同学聊天倾诉自己的不开心。因为我觉得跟他们才是最开心的。大学有很多次跟高中同学出去吃饭，和男生一起吃饭喝酒，高中的同学会说你是女生就少喝点吧啊，但是大学却不一样，能喝就让你喝。虽然没有恶意但是我觉得这个其中的一个不一样。</p>
+<p>电视剧中比较弱的女生娜美乡下来的，很多人都有点看不起但是除了春花。我觉得这个其实就是缘分吧，第一眼就知道你是不是我们能玩到一起的人。在她出道危险的时候总是有人来救她，本来是一个特别的但是在人生的最后也就只有她过的比较的。有爱她的丈夫，有自己的孩子，一个幸福美满的家庭。故事也是由她开头一点一点开始展开的，由她最后找到了她们当时所有的阳光姐妹。</p>
+<p>   在电影中有一幕，春花给每个人都寄了光盘。这个光盘是她们在高中的时候对未来的自己说的话。其实我们每个人小时候的梦想都是好的，但是现实就是现实，每个人都没有达到了自己的梦想，有的甚至更加的堕落。其实这就是生活。看完这一点很多人都会想到自己在高中的时候想到自己的当时的梦想。你的梦想实现了吗？还是你与你的梦想正背道相驰呢？</p>
+<p>电影中女主角的女儿被人欺负。当妈妈的当然要出头，其实我在想为什么电影不让她看到自己的女儿受欺负直接就上去打，最后就留下了自己的女儿。这样她可能就会缓和自己女儿的关系。这个就可以告诉自己的女儿当年的妈妈也是何等的风光。但是没有，最后还是阳光姐妹的人一起去打了那些不听话的孩子。我觉得这样的安排其实也是合理的，阳光姐妹重出江湖也是应该的。</p>
+<p>最后的电影大家都期待的秀智还是回来了，虽然春花不在了但是阳光姐妹也是因为她的离开又重新集合在了一起。这个也是电影的安排。</p>
+<p>这个电影是一个回忆 的电影，能勾起我们在高中的事情，能够引起我们的共鸣。想想自己的高中虽然没有什么惊天动地的大事情但是也是足够的让我们回味。</p>
   
 	</div>
 		<footer class="article-footer clearfix">
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/algorithm/">algorithm</a><a href="/tags/python/">python</a>
+  <span></span> <a href="/tags/随笔/">随笔</a>
   </div>
 
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/leetcode/">leetcode</a>
+  <a class="article-category-link" href="/categories/girlfriend/">girlfriend</a>
 </div>
 
 
 
 <div class="article-share" id="share">
 
-  <div data-url="http://yoursite.com/2015/08/22/leetcode-141-Linked-List-Cycle/" data-title="leetcode 141 Linked List Cycle | xtaq blog" data-tsina="null" class="share clearfix">
+  <div data-url="http://yoursite.com/2015/08/29/青春的回忆-By-sq/" data-title="青春的回忆 By sq | xtaq blog" data-tsina="null" class="share clearfix">
   </div>
 
 </div>
@@ -124,19 +120,11 @@ python代码
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2015/08/22/leetcode-141-Linked-List-Cycle-II/" title="leetcode 142 Linked List Cycle II">
-  <strong>PREVIOUS:</strong><br/>
-  <span>
-  leetcode 142 Linked List Cycle II</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2015/08/20/七夕/"  title="七夕">
+<a href="/2015/08/26/leetcode-4-Median-of-Two-Sorted-Arrays/"  title="leetcode 4 Median of Two Sorted Arrays">
  <strong>NEXT:</strong><br/> 
- <span>七夕
+ <span>leetcode 4 Median of Two Sorted Arrays
 </span>
 </a>
 </div>
