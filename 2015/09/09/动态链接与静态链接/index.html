@@ -4,13 +4,12 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>newstart | xtaq blog</title>
+    <title>动态链接与静态链接 | xtaq blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="xiang tong">
     
-    <meta name="description" content="这是新的开始，我用hexo创建了第一篇文章。
-通过下面的命令，就可以创建新文章1D:\workspace\javascript\nodejs-hexo&amp;#62;hexo new &amp;#26032;&amp;#30340;&amp;#24320;&amp;#22987;&amp;#10;[info] File created at D">
+    <meta name="description" content="动态链接库(Dynamic Linked Library)：Windows为应用程序提供了丰富的函数调用，这些函数调用都包含在动态链接库中。其中有3个最重要的DLL：Kernel32.dll，它包含用于管理内存、进程和线程的各个函数；User32.dll，它包含用于执行用户界面任务(如窗口的创建和消">
     
     
     
@@ -66,15 +65,15 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/08/20/newstart/" title="newstart" itemprop="url">newstart</a>
+      <a href="/2015/09/09/动态链接与静态链接/" title="动态链接与静态链接" itemprop="url">动态链接与静态链接</a>
   </h1>
   <p class="article-author">By
     
       <a href="http://xtaq.work" title="xiang tong">xiang tong</a>
     </p>
   <p class="article-time">
-    <time datetime="2015-08-19T16:26:27.000Z" itemprop="datePublished">2015-08-20</time>
-    更新日期:<time datetime="2015-08-19T16:28:46.000Z" itemprop="dateModified">2015-08-20</time>
+    <time datetime="2015-09-08T16:50:00.000Z" itemprop="datePublished">2015-09-09</time>
+    更新日期:<time datetime="2015-09-08T17:03:24.000Z" itemprop="dateModified">2015-09-09</time>
     
   </p>
 </header>
@@ -86,29 +85,38 @@
 		
 		</div>
 		
-		<p>这是<strong>新的开始</strong>，我用hexo创建了第一篇文章。</p>
-<p>通过下面的命令，就可以创建新文章<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">D:\workspace\javascript\nodejs-hexo&#62;hexo new &#26032;&#30340;&#24320;&#22987;&#10;[info] File created at D:\workspace\javascript\nodejs-hexo\source\_posts\&#26032;&#30340;&#24320;&#22987;.md</span><br></pre></td></tr></table></figure></p>
-<p>感觉非常好。</p>
+		<p><strong>动态链接库(Dynamic Linked Library)：</strong><br>Windows为应用程序提供了丰富的函数调用，这些函数调用都包含在动态链接库中。其中有3个最重要的DLL：<br>Kernel32.dll，它包含用于管理内存、进程和线程的各个函数；<br>User32.dll，它包含用于执行用户界面任务(如窗口的创建和消息的传送)的各个函数；<br>GDI32.dll，它包含用于画图和显示文本的各个函数。</p>
+<p><strong>静态库(Static Library)：</strong><br>函数和数据被编译进一个二进制文件(通常扩展名为.LIB)。在使用静态库的情况下，在编译链接可执行文件时，链接器从库中复制这些函数和数据并把它们和应用程序的其它模块组合起来创建最终的可执行文件(.EXE文件)。</p>
+<p><strong>导入库(Import Library)：</strong><br>在使用动态链接库的时候，往往提供两个文件：一个引入库和一个DLL。引入库包含被DLL导出的函数和变量的符号名，DLL包含实际的函数和数据。在编译链接可执行文件时，只需<br>要链接引入库，DLL中的函数代码和数据并不复制到可执行文件中，在运行的时候，再去加载DLL，访问DLL中导出的函数。</p>
+<p>在运行Windows程序时，它通过一个被称作“动态链接”的进程与Windows相接。一个Windows的.EXE文件拥有它使用不同动态链接库的引用，所使用的函数即在那里。当Windows程<br>序被加载到内存中时，程序中的调用被指向DLL函数的入口，如果DLL不在内存中，系统就将其加载到内存中。</p>
+<p>当链接Windows程序以产生一个可执行文件时，你必须链接由编程环境提供的专门的“导入库(import library)库”。这些导入库包含了动态链接库名称和所有Windows函数调用的<br>引用信息。链接程序使用该信息在.EXE文件中构造一个表，当加载程序时，Windows使用它将调用转换为Windows函数。</p>
+<p><strong>静态库与导入库的区别：</strong><br>导入库和静态库的区别很大，他们实质是不一样的东西。静态库本身就包含了实际执行代码、符号表等等，而对于导入库而言，其实际的执行代码位于动态库中，导入库只包含了<br>地址符号表等，确保程序找到对应函数的一些基本地址信息。</p>
+<p><strong>静态链接与动态链接：</strong></p>
+<p><strong>静态链接方法：</strong>#pragma comment(lib, “test.lib”) ，静态链接的时候，载入代码就会把程序会用到的动态代码或动态代码的地址确定下来<br>静态库的链接可以使用静态链接，动态链接库也可以使用这种方法链接导入库</p>
+<p><strong>动态链接方法：</strong>LoadLibrary()/GetProcessAddress()和FreeLibrary()，使用这种方式的程序并不在一开始就完成动态链接，而是直到真正调用动态库代码时，载入程序才计算(被调用的那部分)动态代码的逻辑地址，然后等到某个时候，程序又需要调用另外某块动态代码时，载入程序又去计算这部分代码的逻辑地址，所以，这种方式使程序初始化时间较短，但运行期间的性能比不上静态链接的程序。</p>
+<p>简单的说，静态库和应用程序编译在一起，在任何情况下都能运行，而动态库是动态链接，顾名思义就是在应用程序启动的时候才会链接，所以，当用户的系统上没有该动态库时，应用程序就会运行失败。再看它们的特点：<br>动态库：<br>1.共享：多个应用程序可以使用同一个动态库，启动多个应用程序的时候，只需要将动态库加载到内存一次即可；<br>2.开发模块好：要求设计者对功能划分的比较好。</p>
+<p>静态库：代码的装载速度快，执行速度也比较快，因为编译时它只会把你需要的那部分链接进去，应用程序相对比较大。但是如果多个应用程序使用的话，会被装载多次，浪费内存。</p>
+<p>如果系统上有多个应用程序都使用该库的话，就把它编译成动态库，这样虽然刚启动的时候加载比较慢，但是多任务的时候会比较节省内存；如果你的系统上只有一到两个应用使用该库，并且使用的API比较少的话，就编译成静态库吧，一般的静态库还可以进行裁剪编译，这样应用程序可能会比较大，但是启动的速度会大大提高。</p>
   
 	</div>
 		<footer class="article-footer clearfix">
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/开始/">开始</a>
+  <span></span> <a href="/tags/系统/">系统</a>
   </div>
 
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/日志/">日志</a>
+  <a class="article-category-link" href="/categories/系统/">系统</a>
 </div>
 
 
 
 <div class="article-share" id="share">
 
-  <div data-url="http://xtaq.work/2015/08/20/newstart/" data-title="newstart | xtaq blog" data-tsina="null" class="share clearfix">
+  <div data-url="http://xtaq.work/2015/09/09/动态链接与静态链接/" data-title="动态链接与静态链接 | xtaq blog" data-tsina="null" class="share clearfix">
   </div>
 
 </div>
@@ -117,19 +125,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2015/08/20/七夕/" title="七夕">
-  <strong>PREVIOUS:</strong><br/>
-  <span>
-  七夕</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2015/08/20/hello-world/"  title="Hello World">
+<a href="/2015/08/29/青春的回忆-By-sq/"  title="青春的回忆 By sq">
  <strong>NEXT:</strong><br/> 
- <span>Hello World
+ <span>青春的回忆 By sq
 </span>
 </a>
 </div>
