@@ -1,0 +1,413 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>PHP变量（二） | xtaq blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+    
+    <meta name="author" content="xiang tong">
+    
+    <meta name="description" content="变量范围 
+变量的范围即它定义的上下文背景（也就是它的生效范围）。大部分的 PHP 变量只有一个单独的范围。这个单独的范围跨度同样包含了 include 和 require 引入的文件。例如：
+1234&amp;lt;?php$a = 1;include &#39;b.inc&#39;;?&amp;gt;
+这里变量 $a 将会在包">
+    
+    
+    
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/pacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/pacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.svg" alt="xtaq blog" title="xtaq blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="xtaq blog">xtaq blog</a></h1>
+				<h2 class="blog-motto">我唯一知道的事就是我一无所知  －－苏格拉底</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+					<li>
+					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:xtaq.work">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/09/09/PHP变量（二）/" title="PHP变量（二）" itemprop="url">PHP变量（二）</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="http://xtaq.work" title="xiang tong">xiang tong</a>
+    </p>
+  <p class="article-time">
+    <time datetime="2015-09-09T08:50:39.000Z" itemprop="datePublished">2015-09-09</time>
+    更新日期:<time datetime="2015-09-09T10:16:37.000Z" itemprop="dateModified">2015-09-09</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目錄</strong>
+		
+		</div>
+		
+		<p><strong>变量范围</strong> </p>
+<p>变量的范围即它定义的上下文背景（也就是它的生效范围）。大部分的 PHP 变量只有一个单独的范围。这个单独的范围跨度同样包含了 include 和 require 引入的文件。例如：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="preprocessor">&lt;?php</span></span><br><span class="line"><span class="variable">$a</span> = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">include</span> <span class="string">'b.inc'</span>;</span><br><span class="line"><span class="preprocessor">?&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p>这里变量 $a 将会在包含文件 b.inc 中生效。但是，在用户自定义函数中，一个局部函数范围将被引入。任何用于函数内部的变量按缺省情况将被限制在局部函数范围内。例如：</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"><span class="variable">$a</span> = <span class="number">1</span>; /* global scope */</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> Test()</span><br><span class="line">&#123;</span><br><span class="line">    echo <span class="variable">$a</span>; /* reference to local scope variable */</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Test();</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>这个脚本不会有任何输出，因为 echo 语句引用了一个局部版本的变量 $a，而且在这个范围内，它并没有被赋值。你可能注意到 PHP 的全局变量和 C 语言有一点点不同，在 C 语言中，全局变量在函数中自动生效，除非被局部变量覆盖。这可能引起一些问题，有些人可能不小心就改变了一个全局变量。PHP 中全局变量在函数中使用时必须声明为 global。</p>
+<p><strong>global 关键字</strong> </p>
+<p>首先，一个使用 global 的例子：</p>
+<p><strong>Example #1</strong> 使用 global</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"><span class="variable">$a</span> = <span class="number">1</span>;</span><br><span class="line"><span class="variable">$b</span> = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> Sum()</span><br><span class="line">&#123;</span><br><span class="line">    global <span class="variable">$a</span>, <span class="variable">$b</span>;</span><br><span class="line"></span><br><span class="line">    <span class="variable">$b</span> = <span class="variable">$a</span> + <span class="variable">$b</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Sum();</span><br><span class="line">echo <span class="variable">$b</span>;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>以上脚本的输出将是“3”。在函数中声明了全局变量 $a 和 $b 之后，对任一变量的所有引用都会指向其全局版本。对于一个函数能够声明的全局变量的最大个数，PHP 没有限制。</p>
+<p>在全局范围内访问变量的第二个办法，是用特殊的 PHP 自定义 $GLOBALS 数组。前面的例子可以写成：</p>
+<p><strong>Example #2</strong> 使用 $GLOBALS 替代 global</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"><span class="variable">$a</span> = <span class="number">1</span>;</span><br><span class="line"><span class="variable">$b</span> = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> Sum()</span><br><span class="line">&#123;</span><br><span class="line">    <span class="variable">$GLOBALS</span>[<span class="string">'b'</span>] = <span class="variable">$GLOBALS</span>[<span class="string">'a'</span>] + <span class="variable">$GLOBALS</span>[<span class="string">'b'</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Sum();</span><br><span class="line">echo <span class="variable">$b</span>;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>$GLOBALS 是一个关联数组，每一个变量为一个元素，键名对应变量名，值对应变量的内容。$GLOBALS 之所以在全局范围内存在，是因为 $GLOBALS 是一个超全局变量。以下范例显示了超全局变量的用处：</p>
+<p><strong>Example #3</strong> 演示超全局变量和作用域的例子</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"><span class="keyword">function</span> test_global()</span><br><span class="line">&#123;</span><br><span class="line">    // 大多数的预定义变量并不 <span class="string">"super"</span>，它们需要用 <span class="string">'global'</span> 关键字来使它们在函数的本地区域中有效。</span><br><span class="line">    global <span class="variable">$HTTP</span>_POST_VARS;</span><br><span class="line"></span><br><span class="line">    echo <span class="variable">$HTTP</span>_POST_VARS[<span class="string">'name'</span>];</span><br><span class="line"></span><br><span class="line">    // Superglobals 在任何范围内都有效，它们并不需要 <span class="string">'global'</span> 声明。Superglobals 是在 PHP <span class="number">4.1</span>.<span class="number">0</span> 引入的。</span><br><span class="line">    echo $_POST[<span class="string">'name'</span>];</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>使用静态变量</strong> </p>
+<p>变量范围的另一个重要特性是静态变量（static variable）。静态变量仅在局部函数域中存在，但当程序执行离开此作用域时，其值并不丢失。看看下面的例子：</p>
+<p><strong>Example #4</strong> 演示需要静态变量的例子</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"><span class="keyword">function</span> Test()</span><br><span class="line">&#123;</span><br><span class="line">    <span class="variable">$a</span> = <span class="number">0</span>;</span><br><span class="line">    echo <span class="variable">$a</span>;</span><br><span class="line">    <span class="variable">$a</span>++;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>本函数没什么用处，因为每次调用时都会将 $a 的值设为 0 并输出 0。将变量加一的 $a++ 没有作用，因为一旦退出本函数则变量 $a 就不存在了。要写一个不会丢失本次计数值的计数函数，要将变量 $a 定义为静态的：</p>
+<p><strong>Example #5</strong> 使用静态变量的例子</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"><span class="keyword">function</span> test()</span><br><span class="line">&#123;</span><br><span class="line">    static <span class="variable">$a</span> = <span class="number">0</span>;</span><br><span class="line">    echo <span class="variable">$a</span>;</span><br><span class="line">    <span class="variable">$a</span>++;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>现在，变量 $a 仅在第一次调用 test() 函数时被初始化，之后每次调用 test() 函数都会输出 $a 的值并加一。</p>
+<p>静态变量也提供了一种处理递归函数的方法。递归函数是一种调用自己的函数。写递归函数时要小心，因为可能会无穷递归下去。必须确保有充分的方法来中止递归。以下这个简单的函数递归计数到 10，使用静态变量 $count 来判断何时停止：</p>
+<p><strong>Example #6</strong> 静态变量与递归函数</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"><span class="keyword">function</span> test()</span><br><span class="line">&#123;</span><br><span class="line">    static <span class="variable">$count</span> = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="variable">$count</span>++;</span><br><span class="line">    echo <span class="variable">$count</span>;</span><br><span class="line">    if (<span class="variable">$count</span> &lt; <span class="number">10</span>) &#123;</span><br><span class="line">        test();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="variable">$count--</span>;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>Note:</strong><br>静态变量可以按照上面的例子声明。如果在声明中用表达式的结果对其赋值会导致解析错误。</p>
+<p><strong>Example #7</strong> 声明静态变量</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"><span class="keyword">function</span> foo()&#123;</span><br><span class="line">    static <span class="variable">$int</span> = <span class="number">0</span>;          // correct</span><br><span class="line">    static <span class="variable">$int</span> = <span class="number">1</span>+<span class="number">2</span>;        // wrong  (as it is an expression)</span><br><span class="line">    static <span class="variable">$int</span> = sqrt(<span class="number">121</span>);  // wrong  (as it is an expression too)</span><br><span class="line"></span><br><span class="line">    <span class="variable">$int</span>++;</span><br><span class="line">    echo <span class="variable">$int</span>;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>静态声明是在编译时解析的。</p>
+<p><strong>Note:</strong><br>在函数之外使用 global 关键字不算错。可以用于在一个函数之内包含文件时。</p>
+<p><strong>全局和静态变量的引用</strong> </p>
+<p>在 Zend 引擎 1 代，它驱动了 PHP4，对于变量的 static 和 global 定义是以引用的方式实现的。例如，在一个函数域内部用 global 语句导入的一个真正的全局变量实际上是建立了一个到全局变量的引用。这有可能导致预料之外的行为，如以下例子所演示的：</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"><span class="keyword">function</span> test_global_ref() &#123;</span><br><span class="line">    global <span class="variable">$obj</span>;</span><br><span class="line">    <span class="variable">$obj</span> = &amp;new stdclass;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> test_global_noref() &#123;</span><br><span class="line">    global <span class="variable">$obj</span>;</span><br><span class="line">    <span class="variable">$obj</span> = new stdclass;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">test_global_ref();</span><br><span class="line">var_dump(<span class="variable">$obj</span>);</span><br><span class="line">test_global_noref();</span><br><span class="line">var_dump(<span class="variable">$obj</span>);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>以上例程会输出：<br>NULL<br>object(stdClass)(0) {<br>}</p>
+<p>类似的行为也适用于 static 语句。引用并不是静态地存储的：</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"><span class="keyword">function</span> &amp;get_instance_ref() &#123;</span><br><span class="line">    static <span class="variable">$obj</span>;</span><br><span class="line"></span><br><span class="line">    echo <span class="string">'Static object: '</span>;</span><br><span class="line">    var_dump(<span class="variable">$obj</span>);</span><br><span class="line">    if (!isset(<span class="variable">$obj</span>)) &#123;</span><br><span class="line">        // 将一个引用赋值给静态变量</span><br><span class="line">        <span class="variable">$obj</span> = &amp;new stdclass;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="variable">$obj-</span>&gt;property++;</span><br><span class="line">    return <span class="variable">$obj</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> &amp;get_instance_noref() &#123;</span><br><span class="line">    static <span class="variable">$obj</span>;</span><br><span class="line"></span><br><span class="line">    echo <span class="string">'Static object: '</span>;</span><br><span class="line">    var_dump(<span class="variable">$obj</span>);</span><br><span class="line">    if (!isset(<span class="variable">$obj</span>)) &#123;</span><br><span class="line">        // 将一个对象赋值给静态变量</span><br><span class="line">        <span class="variable">$obj</span> = new stdclass;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="variable">$obj-</span>&gt;property++;</span><br><span class="line">    return <span class="variable">$obj</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable">$obj1</span> = get_instance_ref();</span><br><span class="line"><span class="variable">$still</span>_obj1 = get_instance_ref();</span><br><span class="line">echo <span class="string">"\n"</span>;</span><br><span class="line"><span class="variable">$obj2</span> = get_instance_noref();</span><br><span class="line"><span class="variable">$still</span>_obj2 = get_instance_noref();</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>以上例程会输出：</p>
+<p>Static object: NULL<br>Static object: NULL  </p>
+<p>Static object: NULL<br>Static object: object(stdClass)(1) {<br>[“property”]=&gt;<br>int(1)<br>}  </p>
+<p>上例演示了当把一个引用赋值给一个静态变量时，第二次调用 &amp;get_instance_ref() 函数时其值并没有被记住。</p>
+<p><strong>来自 PHP 之外的变量</strong> </p>
+<p><strong>HTML 表单（GET 和 POST）</strong> </p>
+<p>当一个表单提交给 PHP 脚本时，表单中的信息会自动在脚本中可用。有很多方法访问此信息，例如：</p>
+<p><strong>Example #1</strong> 一个简单的 HTML 表单</p>
+<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;form action=<span class="string">"foo.php"</span> <span class="keyword">method</span>=<span class="string">"POST"</span>&gt;</span><br><span class="line">    <span class="type">Name</span>:  &lt;input <span class="keyword">type</span>=<span class="string">"text"</span> name=<span class="string">"username"</span>&gt;&lt;br /&gt;</span><br><span class="line">    <span class="type">Email</span>: &lt;input <span class="keyword">type</span>=<span class="string">"text"</span> name=<span class="string">"email"</span>&gt;&lt;br /&gt;</span><br><span class="line">    &lt;input <span class="keyword">type</span>=<span class="string">"submit"</span> name=<span class="string">"submit"</span> value=<span class="string">"Submit me!"</span> /&gt;</span><br><span class="line">&lt;/form&gt;</span><br></pre></td></tr></table></figure>
+<p>根据特定的设置和个人的喜好，有很多种方法访问 HTML 表单中的数据。例如：</p>
+<p><strong>Example #2</strong> 从一个简单的 POST HTML 表单访问数据</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="preprocessor">&lt;?php</span></span><br><span class="line"><span class="comment">// 自 PHP 4.1.0 起可用</span></span><br><span class="line">   <span class="keyword">echo</span> <span class="variable">$_POST</span>[<span class="string">'username'</span>];</span><br><span class="line">   <span class="keyword">echo</span> <span class="variable">$_REQUEST</span>[<span class="string">'username'</span>];</span><br><span class="line">   </span><br><span class="line">   import_request_variables(<span class="string">'p'</span>, <span class="string">'p_'</span>);</span><br><span class="line">   <span class="keyword">echo</span> <span class="variable">$p_username</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 自 PHP 5.0.0 起，这些长格式的预定义变量</span></span><br><span class="line"><span class="comment">// 可用 register_long_arrays 指令关闭。</span></span><br><span class="line"></span><br><span class="line">   <span class="keyword">echo</span> <span class="variable">$HTTP_POST_VARS</span>[<span class="string">'username'</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 如果 PHP 指令 register_globals = on 时可用。不过自</span></span><br><span class="line"><span class="comment">// PHP 4.2.0 起默认值为 register_globals = off。</span></span><br><span class="line"><span class="comment">// 不提倡使用/依赖此种方法。</span></span><br><span class="line"></span><br><span class="line">   <span class="keyword">echo</span> <span class="variable">$username</span>;</span><br><span class="line"><span class="preprocessor">?&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p>使用 GET 表单也类似，只不过要用适当的 GET 预定义变量。GET 也适用于 QUERY_STRING（URL 中在“?”之后的信息）。因此，举例说，<a href="http://www.example.com/test.php?id=3" target="_blank" rel="external">http://www.example.com/test.php?id=3</a> 包含有可用 $_GET[‘id’] 来访问的 GET 数据。参见 $_REQUEST 和 import_request_variables()。</p>
+<p><strong>Note:</strong><br>超全局数组例如 $_POST 和 $_GET，自 PHP 4.1.0 起可用。</p>
+<p><strong>Note:</strong><br>变量名中的点和空格被转换成下划线。例如 <code>&lt;input name=&quot;a.b&quot; /&gt;</code>变成了 $_REQUEST[“a_b”]。</p>
+<p>如上所示，在 PHP 4.2.0 之前 register_globals 的默认值是 on。PHP 社区鼓励大家不要依赖此指令，建议在编码时假定其为 off。</p>
+<p><strong>Note:</strong><br>magic_quotes_gpc 配置指令影响到 Get，Post 和 Cookie 的值。如果打开，值 (It’s “PHP!”) 会自动转换成 (It\’s \”PHP!\”)。十多年前对数据库的插入需要如此转义，如今已经过时了，应该关闭。参见 addslashes()，stripslashes() 和 magic_quotes_sybase。  </p>
+<p>PHP 也懂得表单变量上下文中的数组（参见相关常见问题）。例如可以将相关的变量编成组，或者用此特性从多选输入框中取得值。例如，将一个表单 POST 给自己并在提交时显示数据：</p>
+<p><strong>确定变量类型</strong> </p>
+<p>因为 PHP 会判断变量类型并在需要时进行转换（通常情况下），因此在某一时刻给定的变量是何种类型并不明显。PHP 包括几个函数可以判断变量的类型，例如：gettype()，is_array()，is_float()，is_int()，is_object() 和 is_string()。参见类型一章。</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/PHP/">PHP</a>
+  </div>
+
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/PHP/">PHP</a>
+</div>
+
+
+
+<div class="article-share" id="share">
+
+  <div data-url="http://xtaq.work/2015/09/09/PHP变量（二）/" data-title="PHP变量（二） | xtaq blog" data-tsina="null" class="share clearfix">
+  </div>
+
+</div>
+</footer>   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2015/09/09/PHP变量（一）/"  title="PHP变量（一）">
+ <strong>NEXT:</strong><br/> 
+ <span>PHP变量（一）
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section class="comment">
+	<div class="ds-thread"></div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目錄</strong>
+  
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分類</p>
+		<ul>
+		
+			<li><a href="/categories/PHP/" title="PHP">PHP<sup>8</sup></a></li>
+		
+			<li><a href="/categories/girlfriend/" title="girlfriend">girlfriend<sup>1</sup></a></li>
+		
+			<li><a href="/categories/leetcode/" title="leetcode">leetcode<sup>3</sup></a></li>
+		
+			<li><a href="/categories/python/" title="python">python<sup>1</sup></a></li>
+		
+			<li><a href="/categories/日志/" title="日志">日志<sup>1</sup></a></li>
+		
+			<li><a href="/categories/系统/" title="系统">系统<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">標簽</p>
+		<ul class="clearfix">
+		
+			<li><a href="/tags/PHP/" title="PHP">PHP<sup>8</sup></a></li>
+		
+			<li><a href="/tags/algorithm/" title="algorithm">algorithm<sup>3</sup></a></li>
+		
+			<li><a href="/tags/python/" title="python">python<sup>4</sup></a></li>
+		
+			<li><a href="/tags/开始/" title="开始">开始<sup>1</sup></a></li>
+		
+			<li><a href="/tags/系统/" title="系统">系统<sup>1</sup></a></li>
+		
+			<li><a href="/tags/随想/" title="随想">随想<sup>1</sup></a></li>
+		
+			<li><a href="/tags/随笔/" title="随笔">随笔<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  <div class="rsspart">
+	<a href="null" target="_blank" title="rss">RSS 訂閱</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> 为了成为更好的自己 <br/>
+			My github</p>
+	</section>
+	 
+	<div class="social-font clearfix">
+		
+		
+		
+		<a href="https://github.com/xtaq" target="_blank" title="github"></a>
+		
+		
+		
+	</div>
+		<p class="copyright">Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/A-limon/pacman" target="_blank" title="Pacman">Pacman</a> © 2015 
+		
+		<a href="http://xtaq.work" target="_blank" title="xiang tong">xiang tong</a>
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"xtaq"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+  </body>
+</html>

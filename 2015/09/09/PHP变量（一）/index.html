@@ -1,0 +1,395 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>PHP变量（一） | xtaq blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+    
+    <meta name="author" content="xiang tong">
+    
+    <meta name="description" content="基础 
+PHP 中的变量用一个美元符号后面跟变量名来表示。变量名是区分大小写的。
+变量名与 PHP 中其它的标签一样遵循相同的规则。一个有效的变量名由字母或者下划线开头，后面跟上任意数量的字母，数字，或者下划线。按照正常的正则表达式，它将被表述为：’[a-zA-Z\x7f-\xff][a-zA-Z0">
+    
+    
+    
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/pacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/pacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.svg" alt="xtaq blog" title="xtaq blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="xtaq blog">xtaq blog</a></h1>
+				<h2 class="blog-motto">我唯一知道的事就是我一无所知  －－苏格拉底</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+					<li>
+					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:xtaq.work">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/09/09/PHP变量（一）/" title="PHP变量（一）" itemprop="url">PHP变量（一）</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="http://xtaq.work" title="xiang tong">xiang tong</a>
+    </p>
+  <p class="article-time">
+    <time datetime="2015-09-09T08:01:23.000Z" itemprop="datePublished">2015-09-09</time>
+    更新日期:<time datetime="2015-09-09T08:49:52.000Z" itemprop="dateModified">2015-09-09</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目錄</strong>
+		
+		</div>
+		
+		<p><strong><em>基础</em></strong> </p>
+<p>PHP 中的变量用一个美元符号后面跟变量名来表示。变量名是区分大小写的。</p>
+<p>变量名与 PHP 中其它的标签一样遵循相同的规则。一个有效的变量名由字母或者下划线开头，后面跟上任意数量的字母，数字，或者下划线。按照正常的正则表达式，它将被表述为：’[a-zA-Z<em>\x7f-\xff][a-zA-Z0-9</em>\x7f-\xff]*’。</p>
+<p><strong>Note:</strong> 在此所说的字母是 a-z，A-Z，以及 ASCII 字符从 127 到 255（0x7f-0xff）。<br><strong>Note:</strong> $this 是一个特殊的变量，它不能被赋值。</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"><span class="variable">$var</span> = <span class="string">'Bob'</span>;</span><br><span class="line"><span class="variable">$Var</span> = <span class="string">'Joe'</span>;</span><br><span class="line">echo <span class="string">"$var, $Var"</span>;      // 输出 <span class="string">"Bob, Joe"</span></span><br><span class="line"></span><br><span class="line"><span class="variable">$4site</span> = <span class="string">'not yet'</span>;     // 非法变量名；以数字开头</span><br><span class="line">$_4site = <span class="string">'not yet'</span>;    // 合法变量名；以下划线开头</span><br><span class="line"><span class="variable">$i</span>站点is = <span class="string">'mansikka'</span>;  // 合法变量名；可以用中文</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>变量默认总是传值赋值。那也就是说，当将一个表达式的值赋予一个变量时，整个原始表达式的值被赋值到目标变量。这意味着，例如，当一个变量的值赋予另外一个变量时，改变其中一个变量的值，将不会影响到另外一个变量。有关这种类型的赋值操作，请参阅表达式一章。</p>
+<p>PHP 也提供了另外一种方式给变量赋值：引用赋值。这意味着新的变量简单的引用（换言之，“成为其别名” 或者 “指向”）了原始变量。改动新的变量将影响到原始变量，反之亦然。</p>
+<p>使用引用赋值，简单地将一个 &amp; 符号加到将要赋值的变量前（源变量）。<br>有一点重要事项必须指出，那就是只有有名字的变量才可以引用赋值。</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"><span class="variable">$foo</span> = <span class="number">25</span>;</span><br><span class="line"><span class="variable">$bar</span> = &amp;<span class="variable">$foo</span>;      // 合法的赋值</span><br><span class="line"><span class="variable">$bar</span> = &amp;(<span class="number">24</span> * <span class="number">7</span>);  // 非法; 引用没有名字的表达式</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> test()</span><br><span class="line">&#123;</span><br><span class="line">   return <span class="number">25</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable">$bar</span> = &amp;test();    // 非法</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p><strong><em>预定义变量</em></strong> </p>
+<p>PHP 提供了大量的预定义变量。由于许多变量依赖于运行的服务器的版本和设置，及其它因素，所以并没有详细的说明文档。一些预定义变量在 PHP 以命令行形式运行时并不生效。</p>
+<p><strong>Warning</strong><br>PHP 4.2.0 以及后续版本中，PHP 指令 register_globals 的默认值为 off。这是 PHP 的一个主要变化。让 register_globals 的值为 off 将影响到预定义变量集在全局范围内的有效性。例如，为了得到 DOCUMENT_ROOT 的值，将必须使用 $_SERVER[‘DOCUMENT_ROOT’] 代替 $DOCUMENT_ROOT，又如，使用 $_GET[‘id’] 来代替 $id 从 URL <a href="http://www.example.com/test.php?id=3" target="_blank" rel="external">http://www.example.com/test.php?id=3</a> 中获取 id 值，亦或使用 $_ENV[‘HOME’] 来代替 $HOME 获取环境变量 HOME 的值。  </p>
+<p>如果有可用的 PHP 预定义变量那最好用，如超全局数组。</p>
+<p>从 PHP 4.1.0 开始，PHP 提供了一套附加的预定数组，这些数组变量包含了来自 web 服务器（如果可用），运行环境，和用户输入的数据。这些数组非常特别，它们在全局范围内自动生效，例如，在任何范围内自动生效。因此通常被称为自动全局变量（autoglobals）或者超全局变量（superglobals）。（PHP 中没有用户自定义超全局变量的机制。）超全局变量罗列于下文中；但是为了得到它们的内容和关于 PHP 预定义变量的进一步的讨论以及它们的本质，请参阅预定义变量。而且，你也将注意到旧的预定义数组（$HTTP_*_VARS）仍旧存在。自 PHP 5.0.0 起, 用 register_long_arrays 设置选项可禁用 长类型的 PHP 预定义变量数组。</p>
+<p><strong>Note:</strong> 可变变量<br>超级全局变量不能被用作函数或类方法中的可变变量。<br><strong>Note:</strong><br>尽管超全局变量和 HTTP_*_VARS 同时存在，但是它们并不是同一个变量，所以改变其中一个的值并不会对另一个产生影响。</p>
+<p>如果某些 variables_order 中的变量没有设定，它们的对应的 PHP 预定义数组也是空的。</p>
+<p><strong><em>可变变量</em></strong> </p>
+<p>有时候使用可变变量名是很方便的。就是说，一个变量的变量名可以动态的设置和使用。一个普通的变量通过声明来设置，例如：</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"><span class="variable">$a</span> = <span class="string">'hello'</span>;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>一个可变变量获取了一个普通变量的值作为这个可变变量的变量名。在上面的例子中 hello 使用了两个美元符号（$）以后，就可以作为一个可变变量的变量了。例如：</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$<span class="variable">$a</span> = <span class="string">'world'</span>;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>这时，两个变量都被定义了：$a 的内容是“hello”并且 $hello 的内容是“world”。因此，以下语句：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="preprocessor">&lt;?php</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">"$a $&#123;$a&#125;"</span>;</span><br><span class="line"><span class="preprocessor">?&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p>与以下语句输出完全相同的结果：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="preprocessor">&lt;?php</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">"$a $hello"</span>;</span><br><span class="line"><span class="preprocessor">?&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p>它们都会输出：hello world。</p>
+<p>要将可变变量用于数组，必须解决一个模棱两可的问题。这就是当写下 $$a[1] 时，解析器需要知道是想要 $a[1] 作为一个变量呢，还是想要 $$a 作为一个变量并取出该变量中索引为 [1] 的值。解决此问题的语法是，对第一种情况用 ${$a[1]}，对第二种情况用 ${$a}[1]。</p>
+<p>类的属性也可以通过可变属性名来访问。可变属性名将在该调用所处的范围内被解析。例如，对于 $foo-&gt;$bar 表达式，则会在本地范围来解析 $bar 并且其值将被用于 $foo 的属性名。对于 $bar 是数组单元时也是一样。</p>
+<p>也可使用花括号来给属性名清晰定界。最有用是在属性位于数组中，或者属性名包含有多个部分或者属性名包含有非法字符时（例如来自 json_decode() 或 SimpleXML）。</p>
+<p><strong>Example #1</strong> 可变属性示例</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">class foo &#123;</span><br><span class="line">    var <span class="variable">$bar</span> = <span class="string">'I am bar.'</span>;</span><br><span class="line">    var <span class="variable">$arr</span> = array(<span class="string">'I am A.'</span>, <span class="string">'I am B.'</span>, <span class="string">'I am C.'</span>);</span><br><span class="line">    var <span class="variable">$r</span>   = <span class="string">'I am r.'</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable">$foo</span> = new foo();</span><br><span class="line"><span class="variable">$bar</span> = <span class="string">'bar'</span>;</span><br><span class="line"><span class="variable">$baz</span> = <span class="keyword">array</span>(<span class="string">'foo'</span>, <span class="string">'bar'</span>, <span class="string">'baz'</span>, <span class="string">'quux'</span>);</span><br><span class="line">echo <span class="variable">$foo-</span>&gt;<span class="variable">$bar</span> . <span class="string">"\n"</span>;</span><br><span class="line">echo <span class="variable">$foo-</span>&gt;<span class="variable">$baz</span>[<span class="number">1</span>] . <span class="string">"\n"</span>;</span><br><span class="line"></span><br><span class="line"><span class="variable">$start</span> = <span class="string">'b'</span>;</span><br><span class="line"><span class="variable">$end</span>   = <span class="string">'ar'</span>;</span><br><span class="line">echo <span class="variable">$foo-</span>&gt;&#123;<span class="variable">$start</span> . <span class="variable">$end</span>&#125; . <span class="string">"\n"</span>;</span><br><span class="line"></span><br><span class="line"><span class="variable">$arr</span> = <span class="string">'arr'</span>;</span><br><span class="line">echo <span class="variable">$foo-</span>&gt;<span class="variable">$arr</span>[<span class="number">1</span>] . <span class="string">"\n"</span>;</span><br><span class="line">echo <span class="variable">$foo-</span>&gt;&#123;<span class="variable">$arr</span>&#125;[<span class="number">1</span>] . <span class="string">"\n"</span>;</span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>以上例程会输出：</p>
+<p>I am bar.<br>I am bar.<br>I am bar.<br>I am r.<br>I am B.  </p>
+<p><strong>Warning</strong><br>注意，在 PHP 的函数和类的方法中，超全局变量不能用作可变变量。$this 变量也是一个特殊变量，不能被动态引用。</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/PHP/">PHP</a>
+  </div>
+
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/PHP/">PHP</a>
+</div>
+
+
+
+<div class="article-share" id="share">
+
+  <div data-url="http://xtaq.work/2015/09/09/PHP变量（一）/" data-title="PHP变量（一） | xtaq blog" data-tsina="null" class="share clearfix">
+  </div>
+
+</div>
+</footer>   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2015/09/09/PHP变量（二）/" title="PHP变量（二）">
+  <strong>PREVIOUS:</strong><br/>
+  <span>
+  PHP变量（二）</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2015/09/09/PHP类型（四）/"  title="PHP类型（四）">
+ <strong>NEXT:</strong><br/> 
+ <span>PHP类型（四）
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section class="comment">
+	<div class="ds-thread"></div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目錄</strong>
+  
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分類</p>
+		<ul>
+		
+			<li><a href="/categories/PHP/" title="PHP">PHP<sup>8</sup></a></li>
+		
+			<li><a href="/categories/girlfriend/" title="girlfriend">girlfriend<sup>1</sup></a></li>
+		
+			<li><a href="/categories/leetcode/" title="leetcode">leetcode<sup>3</sup></a></li>
+		
+			<li><a href="/categories/python/" title="python">python<sup>1</sup></a></li>
+		
+			<li><a href="/categories/日志/" title="日志">日志<sup>1</sup></a></li>
+		
+			<li><a href="/categories/系统/" title="系统">系统<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">標簽</p>
+		<ul class="clearfix">
+		
+			<li><a href="/tags/PHP/" title="PHP">PHP<sup>8</sup></a></li>
+		
+			<li><a href="/tags/algorithm/" title="algorithm">algorithm<sup>3</sup></a></li>
+		
+			<li><a href="/tags/python/" title="python">python<sup>4</sup></a></li>
+		
+			<li><a href="/tags/开始/" title="开始">开始<sup>1</sup></a></li>
+		
+			<li><a href="/tags/系统/" title="系统">系统<sup>1</sup></a></li>
+		
+			<li><a href="/tags/随想/" title="随想">随想<sup>1</sup></a></li>
+		
+			<li><a href="/tags/随笔/" title="随笔">随笔<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  <div class="rsspart">
+	<a href="null" target="_blank" title="rss">RSS 訂閱</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> 为了成为更好的自己 <br/>
+			My github</p>
+	</section>
+	 
+	<div class="social-font clearfix">
+		
+		
+		
+		<a href="https://github.com/xtaq" target="_blank" title="github"></a>
+		
+		
+		
+	</div>
+		<p class="copyright">Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/A-limon/pacman" target="_blank" title="Pacman">Pacman</a> © 2015 
+		
+		<a href="http://xtaq.work" target="_blank" title="xiang tong">xiang tong</a>
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"xtaq"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+  </body>
+</html>
