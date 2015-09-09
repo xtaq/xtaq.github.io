@@ -1,0 +1,425 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>PHP类型（三） | xtaq blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+    
+    <meta name="author" content="xiang tong">
+    
+    <meta name="description" content="#####Array 数组 
+PHP 中的数组实际上是一个有序映射。映射是一种把 values 关联到 keys 的类型。此类型在很多方面做了优化，因此可以把它当成真正的数组，或列表（向量），散列表（是映射的一种实现），字典，集合，栈，队列以及更多可能性。由于数组元素的值也可以是另一个数组，树形结构">
+    
+    
+    
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/pacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/pacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.svg" alt="xtaq blog" title="xtaq blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="xtaq blog">xtaq blog</a></h1>
+				<h2 class="blog-motto">我唯一知道的事就是我一无所知  －－苏格拉底</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+					<li>
+					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:xtaq.work">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/09/09/PHP类型（三）/" title="PHP类型（三）" itemprop="url">PHP类型（三）</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="http://xtaq.work" title="xiang tong">xiang tong</a>
+    </p>
+  <p class="article-time">
+    <time datetime="2015-09-09T04:16:39.000Z" itemprop="datePublished">2015-09-09</time>
+    更新日期:<time datetime="2015-09-09T07:00:03.000Z" itemprop="dateModified">2015-09-09</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目錄</strong>
+		
+		</div>
+		
+		<p>#####<strong>Array 数组</strong> </p>
+<p>PHP 中的数组实际上是一个有序映射。映射是一种把 values 关联到 keys 的类型。此类型在很多方面做了优化，因此可以把它当成真正的数组，或列表（向量），散列表（是映射的一种实现），字典，集合，栈，队列以及更多可能性。由于数组元素的值也可以是另一个数组，树形结构和多维数组也是允许的。</p>
+<p>解释这些结构超出了本手册的范围，但对于每种结构至少会提供一个例子。要得到这些结构的更多信息，建议参考有关此广阔主题的其它著作。</p>
+<p><strong>定义数组:</strong> array() </p>
+<p>可以用 array() 语言结构来新建一个数组。它接受任意数量用逗号分隔的 键（key） =&gt; 值（value）对。</p>
+<p>array(  key =&gt;  value<br>     , …<br>     )<br>// 键（key）可是是一个整数 integer 或字符串 string<br>// 值（value）可以是任意类型的值<br>最后一个数组单元之后的逗号可以省略。通常用于单行数组定义中，例如常用 array(1, 2) 而不是 array(1, 2, )。对多行数组定义通常保留最后一个逗号，这样要添加一个新单元时更方便。</p>
+<p>自 5.4 起可以使用短数组定义语法，用 [] 替代 array()。</p>
+<p><strong>Example #1</strong> 一个简单数组</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="preprocessor">&lt;?php</span></span><br><span class="line"><span class="variable">$array</span> = <span class="keyword">array</span>(</span><br><span class="line">    <span class="string">"foo"</span> =&gt; <span class="string">"bar"</span>,</span><br><span class="line">    <span class="string">"bar"</span> =&gt; <span class="string">"foo"</span>,</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 自 PHP 5.4 起</span></span><br><span class="line"><span class="variable">$array</span> = [</span><br><span class="line">    <span class="string">"foo"</span> =&gt; <span class="string">"bar"</span>,</span><br><span class="line">    <span class="string">"bar"</span> =&gt; <span class="string">"foo"</span>,</span><br><span class="line">];</span><br><span class="line"><span class="preprocessor">?&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p>key 可以是 integer 或者 string。value 可以是任意类型。</p>
+<p>此外 key 会有如下的强制转换：</p>
+<ul>
+<li>包含有合法整型值的字符串会被转换为整型。例如键名 “8” 实际会被储存为 8。但是 “08” 则不会强制转换，因为其不是一个合法的十进制数值。</li>
+<li>浮点数也会被转换为整型，意味着其小数部分会被舍去。例如键名 8.7 实际会被储存为 8。</li>
+<li>布尔值也会被转换成整型。即键名 true 实际会被储存为 1 而键名 false 会被储存为 0。</li>
+<li>Null 会被转换为空字符串，即键名 null 实际会被储存为 “”。</li>
+<li>数组和对象不能被用为键名。坚持这么做会导致警告：Illegal offset type。  </li>
+</ul>
+<p>如果在数组定义中多个单元都使用了同一个键名，则只使用了最后一个，之前的都被覆盖了。</p>
+<p><strong>Example #2</strong> 类型强制与覆盖示例</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"><span class="variable">$array</span> = <span class="keyword">array</span>(</span><br><span class="line">    <span class="number">1</span>    =&gt; <span class="string">"a"</span>,</span><br><span class="line">    <span class="string">"1"</span>  =&gt; <span class="string">"b"</span>,</span><br><span class="line">    <span class="number">1.5</span>  =&gt; <span class="string">"c"</span>,</span><br><span class="line">    <span class="literal">true</span> =&gt; <span class="string">"d"</span>,</span><br><span class="line">);</span><br><span class="line">var_dump(<span class="variable">$array</span>);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>以上例程会输出：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">array</span>(<span class="number">1</span>) &#123;</span><br><span class="line">  [<span class="number">1</span>]=&gt;</span><br><span class="line">  <span class="built_in">string</span>(<span class="number">1</span>) <span class="string">"d"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>上例中所有的键名都被强制转换为 1，则每一个新单元都会覆盖前一个的值，最后剩下的只有一个 “d”。</p>
+<p>PHP 数组可以同时含有 integer 和 string 类型的键名，因为 PHP 实际并不区分索引数组和关联数组。</p>
+<p>如果对给出的值没有指定键名，则取当前最大的整数索引值，而新的键名将是该值加一。如果指定的键名已经有了值，则该值会被覆盖。</p>
+<p><strong>Example #3</strong> 混合 integer 和 string 键名</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"><span class="variable">$array</span> = <span class="keyword">array</span>(</span><br><span class="line">    <span class="string">"foo"</span> =&gt; <span class="string">"bar"</span>,</span><br><span class="line">    <span class="string">"bar"</span> =&gt; <span class="string">"foo"</span>,</span><br><span class="line">    <span class="number">100</span>   =&gt; -<span class="number">100</span>,</span><br><span class="line">    -<span class="number">100</span>  =&gt; <span class="number">100</span>,</span><br><span class="line">);</span><br><span class="line">var_dump(<span class="variable">$array</span>);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>以上例程会输出：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">array</span>(<span class="number">4</span>) &#123;</span><br><span class="line">  [<span class="string">"foo"</span>]=&gt;</span><br><span class="line">  <span class="built_in">string</span>(<span class="number">3</span>) <span class="string">"bar"</span></span><br><span class="line">  [<span class="string">"bar"</span>]=&gt;</span><br><span class="line">  <span class="built_in">string</span>(<span class="number">3</span>) <span class="string">"foo"</span></span><br><span class="line">  [<span class="number">100</span>]=&gt;</span><br><span class="line">  <span class="keyword">int</span>(-<span class="number">100</span>)</span><br><span class="line">  [-<span class="number">100</span>]=&gt;</span><br><span class="line">  <span class="keyword">int</span>(<span class="number">100</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>key 为可选项。如果未指定，PHP 将自动使用之前用过的最大 integer 键名加上 1 作为新的键名。</p>
+<p><strong>Example #4</strong> 没有键名的索引数组</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$<span class="built_in">array</span> = <span class="built_in">array</span>(<span class="string">"foo"</span>, <span class="string">"bar"</span>, <span class="string">"hallo"</span>, <span class="string">"world"</span>);</span><br><span class="line">var_dump($<span class="built_in">array</span>);</span><br><span class="line">?&gt;</span><br><span class="line">以上例程会输出：</span><br><span class="line"></span><br><span class="line"><span class="built_in">array</span>(<span class="number">4</span>) &#123;</span><br><span class="line">  [<span class="number">0</span>]=&gt;</span><br><span class="line">  <span class="built_in">string</span>(<span class="number">3</span>) <span class="string">"foo"</span></span><br><span class="line">  [<span class="number">1</span>]=&gt;</span><br><span class="line">  <span class="built_in">string</span>(<span class="number">3</span>) <span class="string">"bar"</span></span><br><span class="line">  [<span class="number">2</span>]=&gt;</span><br><span class="line">  <span class="built_in">string</span>(<span class="number">5</span>) <span class="string">"hallo"</span></span><br><span class="line">  [<span class="number">3</span>]=&gt;</span><br><span class="line">  <span class="built_in">string</span>(<span class="number">5</span>) <span class="string">"world"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>还可以只对某些单元指定键名而对其它的空置：</p>
+<p><strong>Example #5</strong> 仅对部分单元指定键名</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$<span class="built_in">array</span> = <span class="built_in">array</span>(</span><br><span class="line">         <span class="string">"a"</span>,</span><br><span class="line">         <span class="string">"b"</span>,</span><br><span class="line">    <span class="number">6</span> =&gt; <span class="string">"c"</span>,</span><br><span class="line">         <span class="string">"d"</span>,</span><br><span class="line">);</span><br><span class="line">var_dump($<span class="built_in">array</span>);</span><br><span class="line">?&gt;</span><br><span class="line">以上例程会输出：</span><br><span class="line"></span><br><span class="line"><span class="built_in">array</span>(<span class="number">4</span>) &#123;</span><br><span class="line">  [<span class="number">0</span>]=&gt;</span><br><span class="line">  <span class="built_in">string</span>(<span class="number">1</span>) <span class="string">"a"</span></span><br><span class="line">  [<span class="number">1</span>]=&gt;</span><br><span class="line">  <span class="built_in">string</span>(<span class="number">1</span>) <span class="string">"b"</span></span><br><span class="line">  [<span class="number">6</span>]=&gt;</span><br><span class="line">  <span class="built_in">string</span>(<span class="number">1</span>) <span class="string">"c"</span></span><br><span class="line">  [<span class="number">7</span>]=&gt;</span><br><span class="line">  <span class="built_in">string</span>(<span class="number">1</span>) <span class="string">"d"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看到最后一个值 “d” 被自动赋予了键名 7。这是由于之前最大的整数键名是 6。</p>
+<p><strong>用方括号语法访问数组单元</strong> </p>
+<p>数组单元可以通过 array[key] 语法来访问。</p>
+<p><strong>Example #6</strong> 访问数组单元</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"><span class="variable">$array</span> = <span class="keyword">array</span>(</span><br><span class="line">    <span class="string">"foo"</span> =&gt; <span class="string">"bar"</span>,</span><br><span class="line">    <span class="number">42</span>    =&gt; <span class="number">24</span>,</span><br><span class="line">    <span class="string">"multi"</span> =&gt; <span class="keyword">array</span>(</span><br><span class="line">         <span class="string">"dimensional"</span> =&gt; <span class="keyword">array</span>(</span><br><span class="line">             <span class="string">"array"</span> =&gt; <span class="string">"foo"</span></span><br><span class="line">         )</span><br><span class="line">    )</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">var_dump(<span class="variable">$array</span>[<span class="string">"foo"</span>]);</span><br><span class="line">var_dump(<span class="variable">$array</span>[<span class="number">42</span>]);</span><br><span class="line">var_dump(<span class="variable">$array</span>[<span class="string">"multi"</span>][<span class="string">"dimensional"</span>][<span class="string">"array"</span>]);</span><br><span class="line">?&gt;</span><br><span class="line">以上例程会输出：</span><br><span class="line"></span><br><span class="line">string(<span class="number">3</span>) <span class="string">"bar"</span></span><br><span class="line">int(<span class="number">24</span>)</span><br><span class="line">string(<span class="number">3</span>) <span class="string">"foo"</span></span><br></pre></td></tr></table></figure>
+<p><strong>Note:</strong><br>方括号和花括号可以互换使用来访问数组单元（例如 $array[42] 和 $array{42} 在上例中效果相同）。</p>
+<p><strong>用方括号的语法新建／修改</strong> </p>
+<p>可以通过明示地设定其中的值来修改一个已有数组。</p>
+<p>这是通过在方括号内指定键名来给数组赋值实现的。也可以省略键名，在这种情况下给变量名加上一对空的方括号（[]）。</p>
+<p>$arr[key] = value;<br>$arr[] = value;<br>// key 可以是 integer 或 string<br>// value 可以是任意类型的值  </p>
+<p>如果 $arr 还不存在，将会新建一个，这也是另一种新建数组的方法。不过并不鼓励这样做，因为如果 $arr 已经包含有值（例如来自请求变量的 string）则此值会保留而 [] 实际上代表着字符串访问运算符。初始化变量的最好方式是直接给其赋值。。</p>
+<p>要修改某个值，通过其键名给该单元赋一个新值。要删除某键值对，对其调用 unset() 函数。</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"><span class="variable">$arr</span> = <span class="keyword">array</span>(<span class="number">5</span> =&gt; <span class="number">1</span>, <span class="number">12</span> =&gt; <span class="number">2</span>);</span><br><span class="line"></span><br><span class="line"><span class="variable">$arr</span>[] = <span class="number">56</span>;    // This is the same <span class="keyword">as</span> <span class="variable">$arr</span>[<span class="number">13</span>] = <span class="number">56</span>;</span><br><span class="line">                // at this point <span class="keyword">of</span> the script</span><br><span class="line"></span><br><span class="line"><span class="variable">$arr</span>[<span class="string">"x"</span>] = <span class="number">42</span>; // This adds a new <span class="literal">element</span> <span class="keyword">to</span></span><br><span class="line">                // the <span class="keyword">array</span> with key <span class="string">"x"</span></span><br><span class="line">                </span><br><span class="line">unset(<span class="variable">$arr</span>[<span class="number">5</span>]); // This removes the <span class="literal">element</span> from the <span class="keyword">array</span></span><br><span class="line"></span><br><span class="line">unset(<span class="variable">$arr</span>);    // This deletes the whole <span class="keyword">array</span></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>Note:</strong><br>如上所述，如果给出方括号但没有指定键名，则取当前最大整数索引值，新的键名将是该值加上 1（但是最小为 0）。如果当前还没有整数索引，则键名将为 0。<br>注意这里所使用的最大整数键名不一定当前就在数组中。它只要在上次数组重新生成索引后曾经存在过就行了。以下面的例子来说明：</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">// 创建一个简单的数组</span><br><span class="line"><span class="variable">$array</span> = <span class="keyword">array</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>);</span><br><span class="line">print_r(<span class="variable">$array</span>);</span><br><span class="line"></span><br><span class="line">// 现在删除其中的所有元素，但保持数组本身不变:</span><br><span class="line">foreach (<span class="variable">$array</span> <span class="keyword">as</span> <span class="variable">$i</span> =&gt; <span class="variable">$value</span>) &#123;</span><br><span class="line">    unset(<span class="variable">$array</span>[<span class="variable">$i</span>]);</span><br><span class="line">&#125;</span><br><span class="line">print_r(<span class="variable">$array</span>);</span><br><span class="line"></span><br><span class="line">// 添加一个单元（注意新的键名是 <span class="number">5</span>，而不是你可能以为的 <span class="number">0</span>）</span><br><span class="line"><span class="variable">$array</span>[] = <span class="number">6</span>;</span><br><span class="line">print_r(<span class="variable">$array</span>);</span><br><span class="line"></span><br><span class="line">// 重新索引：</span><br><span class="line"><span class="variable">$array</span> = array_values(<span class="variable">$array</span>);</span><br><span class="line"><span class="variable">$array</span>[] = <span class="number">7</span>;</span><br><span class="line">print_r(<span class="variable">$array</span>);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>Note:</strong><br>unset() 函数允许删除数组中的某个键。但要注意数组将不会重建索引。如果需要删除后重建索引，可以用 array_values() 函数。</p>
+<p><strong>为什么 $foo[bar] 错了？</strong> </p>
+<p>应该始终在用字符串表示的数组索引上加上引号。例如用 $foo[‘bar’] 而不是 $foo[bar]。但是为什么呢？可能在老的脚本中见过如下语法：</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"><span class="variable">$foo</span>[bar] = <span class="string">'enemy'</span>;</span><br><span class="line">echo <span class="variable">$foo</span>[bar];</span><br><span class="line">// etc</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>这样是错的，但可以正常运行。那么为什么错了呢？原因是此代码中有一个未定义的常量（bar）而不是字符串（’bar’－注意引号），而 PHP 可能会在以后定义此常量，不幸的是你的代码中有同样的名字。它能运行，是因为 PHP 自动将裸字符串（没有引号的字符串且不对应于任何已知符号）转换成一个其值为该裸字符串的正常字符串。例如，如果没有常量定义为 bar，PHP 将把它替代为 ‘bar’ 并使用之。</p>
+<p>Note: 这并不意味着总是给键名加上引号。用不着给键名为常量或变量的加上引号，否则会使 PHP 不能解析它们。</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">error_reporting(E_ALL);</span><br><span class="line">ini_set(<span class="string">'display_errors'</span>, <span class="literal">true</span>);</span><br><span class="line">ini_set(<span class="string">'html_errors'</span>, <span class="literal">false</span>);</span><br><span class="line">// Simple array:</span><br><span class="line"><span class="variable">$array</span> = <span class="keyword">array</span>(<span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line"><span class="variable">$count</span> = count(<span class="variable">$array</span>);</span><br><span class="line"><span class="keyword">for</span> (<span class="variable">$i</span> = <span class="number">0</span>; <span class="variable">$i</span> &lt; <span class="variable">$count</span>; <span class="variable">$i</span>++) &#123;</span><br><span class="line">    echo <span class="string">"\nChecking $i: \n"</span>;</span><br><span class="line">    echo <span class="string">"Bad: "</span> . <span class="variable">$array</span>[<span class="string">'$i'</span>] . <span class="string">"\n"</span>;</span><br><span class="line">    echo <span class="string">"Good: "</span> . <span class="variable">$array</span>[<span class="variable">$i</span>] . <span class="string">"\n"</span>;</span><br><span class="line">    echo <span class="string">"Bad: &#123;$array['$i']&#125;\n"</span>;</span><br><span class="line">    echo <span class="string">"Good: &#123;$array[$i]&#125;\n"</span>;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>比较</strong> </p>
+<p>可以用 array_diff() 和数组运算符来比较数组。</p>
+<p><strong>示例</strong> </p>
+<p>PHP 中的数组类型有非常多的用途。以下是一些示例：</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">// This:</span><br><span class="line"><span class="variable">$a</span> = <span class="keyword">array</span>( <span class="string">'color'</span> =&gt; <span class="string">'red'</span>,</span><br><span class="line">            <span class="string">'taste'</span> =&gt; <span class="string">'sweet'</span>,</span><br><span class="line">            <span class="string">'shape'</span> =&gt; <span class="string">'round'</span>,</span><br><span class="line">            <span class="string">'name'</span>  =&gt; <span class="string">'apple'</span>,</span><br><span class="line">            <span class="number">4</span>        // key will be <span class="number">0</span></span><br><span class="line">          );</span><br><span class="line"></span><br><span class="line"><span class="variable">$b</span> = <span class="keyword">array</span>(<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>);</span><br><span class="line"></span><br><span class="line">// . . .is completely equivalent with this:</span><br><span class="line"><span class="variable">$a</span> = <span class="keyword">array</span>();</span><br><span class="line"><span class="variable">$a</span>[<span class="string">'color'</span>] = <span class="string">'red'</span>;</span><br><span class="line"><span class="variable">$a</span>[<span class="string">'taste'</span>] = <span class="string">'sweet'</span>;</span><br><span class="line"><span class="variable">$a</span>[<span class="string">'shape'</span>] = <span class="string">'round'</span>;</span><br><span class="line"><span class="variable">$a</span>[<span class="string">'name'</span>]  = <span class="string">'apple'</span>;</span><br><span class="line"><span class="variable">$a</span>[]        = <span class="number">4</span>;        // key will be <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="variable">$b</span> = <span class="keyword">array</span>();</span><br><span class="line"><span class="variable">$b</span>[] = <span class="string">'a'</span>;</span><br><span class="line"><span class="variable">$b</span>[] = <span class="string">'b'</span>;</span><br><span class="line"><span class="variable">$b</span>[] = <span class="string">'c'</span>;</span><br><span class="line"></span><br><span class="line">// After the above code is executed, <span class="variable">$a</span> will be the <span class="keyword">array</span></span><br><span class="line">// <span class="keyword">array</span>(<span class="string">'color'</span> =&gt; <span class="string">'red'</span>, <span class="string">'taste'</span> =&gt; <span class="string">'sweet'</span>, <span class="string">'shape'</span> =&gt; <span class="string">'round'</span>, </span><br><span class="line">// <span class="string">'name'</span> =&gt; <span class="string">'apple'</span>, <span class="number">0</span> =&gt; <span class="number">4</span>), and <span class="variable">$b</span> will be the <span class="keyword">array</span> </span><br><span class="line">// <span class="keyword">array</span>(<span class="number">0</span> =&gt; <span class="string">'a'</span>, <span class="number">1</span> =&gt; <span class="string">'b'</span>, <span class="number">2</span> =&gt; <span class="string">'c'</span>), or simply <span class="keyword">array</span>(<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>).</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>Example #9</strong> 集合</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"><span class="variable">$colors</span> = <span class="keyword">array</span>(<span class="string">'red'</span>, <span class="string">'blue'</span>, <span class="string">'green'</span>, <span class="string">'yellow'</span>);</span><br><span class="line"></span><br><span class="line">foreach (<span class="variable">$colors</span> <span class="keyword">as</span> <span class="variable">$color</span>) &#123;</span><br><span class="line">    echo <span class="string">"Do you like $color?\n"</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>数组(Array) 的赋值总是会涉及到值的拷贝。使用引用运算符通过引用来拷贝数组。</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"><span class="variable">$arr1</span> = <span class="keyword">array</span>(<span class="number">2</span>, <span class="number">3</span>);</span><br><span class="line"><span class="variable">$arr2</span> = <span class="variable">$arr1</span>;</span><br><span class="line"><span class="variable">$arr2</span>[] = <span class="number">4</span>; // <span class="variable">$arr2</span> is changed,</span><br><span class="line">             // <span class="variable">$arr1</span> is still <span class="keyword">array</span>(<span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line">             </span><br><span class="line"><span class="variable">$arr3</span> = &amp;<span class="variable">$arr1</span>;</span><br><span class="line"><span class="variable">$arr3</span>[] = <span class="number">4</span>; // now <span class="variable">$arr1</span> and <span class="variable">$arr3</span> are the same</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>  
+	</div>
+		<footer class="article-footer clearfix">
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/PHP/">PHP</a>
+  </div>
+
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/PHP/">PHP</a>
+</div>
+
+
+
+<div class="article-share" id="share">
+
+  <div data-url="http://xtaq.work/2015/09/09/PHP类型（三）/" data-title="PHP类型（三） | xtaq blog" data-tsina="null" class="share clearfix">
+  </div>
+
+</div>
+</footer>   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2015/09/09/PHP类型（四）/" title="PHP类型（四）">
+  <strong>PREVIOUS:</strong><br/>
+  <span>
+  PHP类型（四）</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2015/09/09/PHP类型（二）/"  title="PHP类型（二）">
+ <strong>NEXT:</strong><br/> 
+ <span>PHP类型（二）
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section class="comment">
+	<div class="ds-thread"></div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目錄</strong>
+  
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分類</p>
+		<ul>
+		
+			<li><a href="/categories/PHP/" title="PHP">PHP<sup>6</sup></a></li>
+		
+			<li><a href="/categories/girlfriend/" title="girlfriend">girlfriend<sup>1</sup></a></li>
+		
+			<li><a href="/categories/leetcode/" title="leetcode">leetcode<sup>3</sup></a></li>
+		
+			<li><a href="/categories/python/" title="python">python<sup>1</sup></a></li>
+		
+			<li><a href="/categories/日志/" title="日志">日志<sup>1</sup></a></li>
+		
+			<li><a href="/categories/系统/" title="系统">系统<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">標簽</p>
+		<ul class="clearfix">
+		
+			<li><a href="/tags/PHP/" title="PHP">PHP<sup>6</sup></a></li>
+		
+			<li><a href="/tags/algorithm/" title="algorithm">algorithm<sup>3</sup></a></li>
+		
+			<li><a href="/tags/python/" title="python">python<sup>4</sup></a></li>
+		
+			<li><a href="/tags/开始/" title="开始">开始<sup>1</sup></a></li>
+		
+			<li><a href="/tags/系统/" title="系统">系统<sup>1</sup></a></li>
+		
+			<li><a href="/tags/随想/" title="随想">随想<sup>1</sup></a></li>
+		
+			<li><a href="/tags/随笔/" title="随笔">随笔<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  <div class="rsspart">
+	<a href="null" target="_blank" title="rss">RSS 訂閱</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> 为了成为更好的自己 <br/>
+			My github</p>
+	</section>
+	 
+	<div class="social-font clearfix">
+		
+		
+		
+		<a href="https://github.com/xtaq" target="_blank" title="github"></a>
+		
+		
+		
+	</div>
+		<p class="copyright">Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/A-limon/pacman" target="_blank" title="Pacman">Pacman</a> © 2015 
+		
+		<a href="http://xtaq.work" target="_blank" title="xiang tong">xiang tong</a>
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"xtaq"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+  </body>
+</html>

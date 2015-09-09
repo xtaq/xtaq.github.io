@@ -62,6 +62,134 @@
 
   <section class="post" itemscope itemprop="blogPost">
   
+    <a href="/2015/09/09/PHP类型（四）/" title="PHP类型（四）" itemprop="url">
+  
+    <h1 itemprop="name">PHP类型（四）</h1>
+    
+     
+           <p itemprop="description" >#####Object 对象 
+对象初始化 
+要创建一个新的对象 object，使用 new 语句实例化一个类：
+123456789101112&amp;lt;?phpclass foo&amp;#123;    function do_foo()    &amp;#123;        echo &quot;</p>
+        
+    
+    <time datetime="2015-09-09T07:00:28.000Z" itemprop="datePublished">2015-09-09</time>
+  </a>
+</section>
+
+
+
+
+  <section class="post" itemscope itemprop="blogPost">
+  
+    <a href="/2015/09/09/PHP类型（三）/" title="PHP类型（三）" itemprop="url">
+  
+    <h1 itemprop="name">PHP类型（三）</h1>
+    
+     
+           <p itemprop="description" >#####Array 数组 
+PHP 中的数组实际上是一个有序映射。映射是一种把 values 关联到 keys 的类型。此类型在很多方面做了优化，因此可以把它当成真正的数组，或列表（向量），散列表（是映射的一种实现），字典，集合，栈，队列以及更多可能性。由于数组元素的值也可以是</p>
+        
+    
+    <time datetime="2015-09-09T04:16:39.000Z" itemprop="datePublished">2015-09-09</time>
+  </a>
+</section>
+
+
+
+
+  <section class="post" itemscope itemprop="blogPost">
+  
+    <a href="/2015/09/09/PHP类型（二）/" title="PHP类型（二）" itemprop="url">
+  
+    <h1 itemprop="name">PHP类型（二）</h1>
+    
+     
+           <p itemprop="description" >#####Float 浮点型
+浮点型（也叫浮点数 float，双精度数 double 或实数 real）可以用以下任一语法定义：
+12345&amp;lt;?php$a = 1.234; $b = 1.2e3; $c = 7E-10;?&amp;gt;
+浮点数的字长和平台相关，尽管通常最大值是 </p>
+        
+    
+    <time datetime="2015-09-09T02:50:30.000Z" itemprop="datePublished">2015-09-09</time>
+  </a>
+</section>
+
+
+
+
+  <section class="post" itemscope itemprop="blogPost">
+  
+    <a href="/2015/09/09/PHP类型（一）/" title="PHP类型（一）" itemprop="url">
+  
+    <h1 itemprop="name">PHP类型（一）</h1>
+    
+     
+           <p itemprop="description" >Boolean 布尔类型  
+这是最简单的类型。boolean 表达了真值，可以为 TRUE 或 FALSE。 
+要指定一个布尔值，使用关键字 TRUE 或 FALSE。两个都不区分大小写。
+123&amp;lt;?php$foo = True; // assign the value </p>
+        
+    
+    <time datetime="2015-09-09T02:25:50.000Z" itemprop="datePublished">2015-09-09</time>
+  </a>
+</section>
+
+
+
+
+  <section class="post" itemscope itemprop="blogPost">
+  
+    <a href="/2015/09/09/PHP类型简介/" title="PHP类型简介" itemprop="url">
+  
+    <h1 itemprop="name">PHP类型简介</h1>
+    
+     
+           <p itemprop="description" >PHP 支持 8 种原始数据类型。
+四种标量类型：  
+
+boolean （布尔型）
+integer （整型）
+float （浮点型，也称作 double)
+string （字符串）
+
+两种复合类型：
+
+array （数组）
+object （对象）
+
+最后是两种特殊类型：
+
+re</p>
+        
+    
+    <time datetime="2015-09-09T02:15:29.000Z" itemprop="datePublished">2015-09-09</time>
+  </a>
+</section>
+
+
+
+
+  <section class="post" itemscope itemprop="blogPost">
+  
+    <a href="/2015/09/09/PHP基本语法/" title="PHP基本语法" itemprop="url">
+  
+    <h1 itemprop="name">PHP基本语法</h1>
+    
+     
+           <p itemprop="description" >PHP标记：当解析一个文件时，PHP 会寻找起始和结束标记，也就是 &amp;lt;?php 和 ?&amp;gt;，这告诉 PHP 开始和停止解析二者之间的代码。此种解析方式使得 PHP 可以被嵌入到各种不同的文档中去，而任何起始和结束标记之外的部分都会被 PHP 解析器忽略。  
+PHP 也</p>
+        
+    
+    <time datetime="2015-09-09T01:49:13.000Z" itemprop="datePublished">2015-09-09</time>
+  </a>
+</section>
+
+
+
+
+  <section class="post" itemscope itemprop="blogPost">
+  
     <a href="/2015/09/09/动态链接与静态链接/" title="动态链接与静态链接" itemprop="url">
   
     <h1 itemprop="name">动态链接与静态链接</h1>
@@ -137,105 +265,10 @@ Answers:可能一点例子代码会有帮助：注意调用函数foo、class_foo
 
 
 
-  <section class="post" itemscope itemprop="blogPost">
-  
-    <a href="/2015/08/22/leetcode-141-Linked-List-Cycle-II/" title="leetcode 142 Linked List Cycle II" itemprop="url">
-  
-    <h1 itemprop="name">leetcode 142 Linked List Cycle II</h1>
-    
-     
-           <p itemprop="description" >Linked List Cycle II
-返回一个有环链表的环的头部，若没有环则返回空。
-思路  
-使用快慢指针，
-fast每次前进两步(若两步中出现NULL，则返回NULL).
-slow每次前进一步(若出现NULL，则返回NULL).
-当出现环路，则总有某时刻，fast会赶上s</p>
-        
-    
-    <time datetime="2015-08-22T13:52:06.000Z" itemprop="datePublished">2015-08-22</time>
-  </a>
-</section>
 
-
-
-
-  <section class="post" itemscope itemprop="blogPost">
-  
-    <a href="/2015/08/22/leetcode-141-Linked-List-Cycle/" title="leetcode 141 Linked List Cycle" itemprop="url">
-  
-    <h1 itemprop="name">leetcode 141 Linked List Cycle</h1>
-    
-     
-           <p itemprop="description" >Linked List Cycle
- 判断一个链表是否有环
-思路
-建立两个指针，一个每次走一步，一个每次走两步，如果链表有环，两个指针在走过一定次数后会相遇。
-python代码 
-123456789101112131415161718192021# Definition for </p>
-        
-    
-    <time datetime="2015-08-22T10:10:17.000Z" itemprop="datePublished">2015-08-22</time>
-  </a>
-</section>
-
-
-
-
-  <section class="post" itemscope itemprop="blogPost">
-  
-    <a href="/2015/08/20/七夕/" title="七夕" itemprop="url">
-  
-    <h1 itemprop="name">七夕</h1>
-    
-     
-           <p itemprop="description" >今天七夕，首先祝亲爱的七夕快乐。今天也是我这个博客开张之日，仅以此纪念我们的爱情。  
-
-一直一直走下去，直到天荒地老。</p>
-        
-    
-    <time datetime="2015-08-20T02:50:08.000Z" itemprop="datePublished">2015-08-20</time>
-  </a>
-</section>
-
-
-
-
-  <section class="post" itemscope itemprop="blogPost">
-  
-    <a href="/2015/08/20/newstart/" title="newstart" itemprop="url">
-  
-    <h1 itemprop="name">newstart</h1>
-    
-     
-           <p itemprop="description" >这是新的开始，我用hexo创建了第一篇文章。
-通过下面的命令，就可以创建新文章1D:\workspace\javascript\nodejs-hexo&amp;#62;hexo new &amp;#26032;&amp;#30340;&amp;#24320;&amp;#22987;&amp;#10;[info] File cr</p>
-        
-    
-    <time datetime="2015-08-19T16:26:27.000Z" itemprop="datePublished">2015-08-20</time>
-  </a>
-</section>
-
-
-
-
-  <section class="post" itemscope itemprop="blogPost">
-  
-    <a href="/2015/08/20/hello-world/" title="Hello World" itemprop="url">
-  
-    <h1 itemprop="name">Hello World</h1>
-    
-     
-           <p itemprop="description" >Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the </p>
-        
-    
-    <time datetime="2015-08-19T16:20:13.000Z" itemprop="datePublished">2015-08-20</time>
-  </a>
-</section>
-
-
-
-
+  <nav id="page-nav" class="clearfix">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+  </nav>
 
 </div>
       <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
@@ -248,6 +281,8 @@ python代码
 <div class="categorieslist">
 	<p class="asidetitle">分類</p>
 		<ul>
+		
+			<li><a href="/categories/PHP/" title="PHP">PHP<sup>6</sup></a></li>
 		
 			<li><a href="/categories/girlfriend/" title="girlfriend">girlfriend<sup>1</sup></a></li>
 		
@@ -267,6 +302,8 @@ python代码
 <div class="tagslist">
 	<p class="asidetitle">標簽</p>
 		<ul class="clearfix">
+		
+			<li><a href="/tags/PHP/" title="PHP">PHP<sup>6</sup></a></li>
 		
 			<li><a href="/tags/algorithm/" title="algorithm">algorithm<sup>3</sup></a></li>
 		

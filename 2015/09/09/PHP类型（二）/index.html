@@ -1,0 +1,450 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>PHP类型（二） | xtaq blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+    
+    <meta name="author" content="xiang tong">
+    
+    <meta name="description" content="#####Float 浮点型
+浮点型（也叫浮点数 float，双精度数 double 或实数 real）可以用以下任一语法定义：
+12345&amp;lt;?php$a = 1.234; $b = 1.2e3; $c = 7E-10;?&amp;gt;
+浮点数的字长和平台相关，尽管通常最大值是 1.8e308 并具">
+    
+    
+    
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/pacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/pacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.svg" alt="xtaq blog" title="xtaq blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="xtaq blog">xtaq blog</a></h1>
+				<h2 class="blog-motto">我唯一知道的事就是我一无所知  －－苏格拉底</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+					<li>
+					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:xtaq.work">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/09/09/PHP类型（二）/" title="PHP类型（二）" itemprop="url">PHP类型（二）</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="http://xtaq.work" title="xiang tong">xiang tong</a>
+    </p>
+  <p class="article-time">
+    <time datetime="2015-09-09T02:50:30.000Z" itemprop="datePublished">2015-09-09</time>
+    更新日期:<time datetime="2015-09-09T04:01:20.000Z" itemprop="dateModified">2015-09-09</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目錄</strong>
+		
+		</div>
+		
+		<p>#####<strong>Float 浮点型</strong></p>
+<p>浮点型（也叫浮点数 float，双精度数 double 或实数 real）可以用以下任一语法定义：</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"><span class="variable">$a</span> = <span class="number">1.234</span>; </span><br><span class="line"><span class="variable">$b</span> = <span class="number">1.2</span>e3; </span><br><span class="line"><span class="variable">$c</span> = <span class="number">7</span>E-<span class="number">10</span>;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>浮点数的字长和平台相关，尽管通常最大值是 1.8e308 并具有 14 位十进制数字的精度（64 位 IEEE 格式）。</p>
+<p><strong>Warning</strong><br>浮点数的精度</p>
+<p>浮点数的精度有限。尽管取决于系统，PHP 通常使用 IEEE 754 双精度格式，则由于取整而导致的最大相对误差为 1.11e-16。非基本数学运算可能会给出更大误差，并且要考虑到进行复合运算时的误差传递。<br>此外，以十进制能够精确表示的有理数如 0.1 或 0.7，无论有多少尾数都不能被内部所使用的二进制精确表示，因此不能在不丢失一点点精度的情况下转换为二进制的格式。这就会造成混乱的结果：例如，floor((0.1+0.7)*10) 通常会返回 7 而不是预期中的 8，因为该结果内部的表示其实是类似 7.9999999999999991118…。<br>所以永远不要相信浮点数结果精确到了最后一位，也永远不要比较两个浮点数是否相等。如果确实需要更高的精度，应该使用任意精度数学函数或者 gmp 函数。</p>
+<p><strong>比较浮点数</strong></p>
+<p>如上述警告信息所言，由于内部表达方式的原因，比较两个浮点数是否相等是有问题的。不过还是有迂回的方法来比较浮点数值的。</p>
+<p>要测试浮点数是否相等，要使用一个仅比该数值大一丁点的最小误差值。该值也被称为机器极小值（epsilon）或最小单元取整数，是计算中所能接受的最小的差别值。</p>
+<p>$a 和 $b 在小数点后五位精度内都是相等的。</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"><span class="variable">$a</span> = <span class="number">1.23456789</span>;</span><br><span class="line"><span class="variable">$b</span> = <span class="number">1.23456780</span>;</span><br><span class="line"><span class="variable">$epsilon</span> = <span class="number">0</span>.<span class="number">00001</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(abs(<span class="variable">$a-</span><span class="variable">$b</span>) &lt; <span class="variable">$epsilon</span>) &#123;</span><br><span class="line">    echo <span class="string">"true"</span>;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>NaN</strong></p>
+<p>某些数学运算会产生一个由常量 NAN 所代表的结果。此结果代表着一个在浮点数运算中未定义或不可表述的值。任何拿此值与其它任何值进行的松散或严格比较的结果都是 FALSE。</p>
+<p>由于 NAN 代表着任何不同值，不应拿 NAN 去和其它值进行比较，包括其自身，应该用 is_nan() 来检查。</p>
+<p>#####<strong>String 字符串</strong></p>
+<p>一个字符串 string 就是由一系列的字符组成，其中每个字符等同于一个字节。这意味着 PHP 只能支持 256 的字符集，因此不支持 Unicode 。详见字符串类型详解。</p>
+<p><strong>Note:</strong> string 最大可以达到 2GB。</p>
+<p>一个字符串可以用 4 种方式表达：</p>
+<ul>
+<li>单引号</li>
+<li>双引号</li>
+<li>heredoc 语法结构</li>
+<li>nowdoc 语法结构（自 PHP 5.3.0 起）</li>
+</ul>
+<p><strong>单引号</strong> </p>
+<p>定义一个字符串的最简单的方法是用单引号把它包围起来（字符 ‘）。</p>
+<p>要表达一个单引号自身，需在它的前面加个反斜线（\）来转义。要表达一个反斜线自身，则用两个反斜线（\）。其它任何方式的反斜线都会被当成反斜线本身：也就是说如果想使用其它转义序列例如 \r 或者 \n，并不代表任何特殊含义，就单纯是这两个字符本身。</p>
+<p><strong>Note:</strong> 不像双引号和 heredoc 语法结构，在单引号字符串中的变量和特殊字符的转义序列将不会被替换。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="preprocessor">&lt;?php</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">'this is a simple string'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 可以录入多行</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">'You can also have embedded newlines in </span><br><span class="line">strings this way as it is</span><br><span class="line">okay to do'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 输出： Arnold once said: "I'll be back"</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">'Arnold once said: "I\'ll be back"'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 输出： You deleted C:\*.*?</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">'You deleted C:\\*.*?'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 输出： You deleted C:\*.*?</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">'You deleted C:\*.*?'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 输出： This will not expand: \n a newline</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">'This will not expand: \n a newline'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 输出： Variables do not $expand $either</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">'Variables do not $expand $either'</span>;</span><br><span class="line"><span class="preprocessor">?&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p><strong>双引号</strong> </p>
+<p>如果字符串是包围在双引号（”）中， PHP 将对一些特殊的字符进行解析：</p>
+<p>转义字符<br>序列    含义<br>\n    换行（ASCII 字符集中的 LF 或 0x0A (10)）<br>\r    回车（ASCII 字符集中的 CR 或 0x0D (13)）<br>\t    水平制表符（ASCII 字符集中的 HT 或 0x09 (9)）<br>\v    垂直制表符（ASCII 字符集中的 VT 或 0x0B (11)）（自 PHP 5.2.5 起）<br>\e    Escape（ASCII 字符集中的 ESC 或 0x1B (27)）（自 PHP 5.4.0 起）<br>\f    换页（ASCII 字符集中的 FF 或 0x0C (12)）（自 PHP 5.2.5 起）<br>\\    反斜线<br>\$    美元标记<br>\”    双引号<br>\[0-7]{1,3}    符合该正则表达式序列的是一个以八进制方式来表达的字符<br>\x[0-9A-Fa-f]{1,2}    符合该正则表达式序列的是一个以十六进制方式来表达的字符</p>
+<p>和单引号字符串一样，转义任何其它字符都会导致反斜线被显示出来。PHP 5.1.1 以前，{$var} 中的反斜线还不会被显示出来。</p>
+<p>用双引号定义的字符串最重要的特征是变量会被解析.</p>
+<p><strong>Heredoc 结构</strong> </p>
+<p>第三种表达字符串的方法是用 heredoc 句法结构：&lt;&lt;&lt;。在该运算符之后要提供一个标识符，然后换行。接下来是字符串 string 本身，最后要用前面定义的标识符作为结束标志。</p>
+<p>结束时所引用的标识符必须在该行的第一列，而且，标识符的命名也要像其它标签一样遵守 PHP 的规则：只能包含字母、数字和下划线，并且必须以字母和下划线作为开头。</p>
+<p><strong>Warning</strong>  要注意的是结束标识符这行除了可能有一个分号（;）外，绝对不能包含其它字符。这意味着标识符不能缩进，分号的前后也不能有任何空白或制表符。更重要的是结束标识符的前面必须是个被本地操作系统认可的换行，比如在 UNIX 和 Mac OS X 系统中是 \n，而结束定界符（可能其后有个分号）之后也必须紧跟一个换行。<br>如果不遵守该规则导致结束标识不“干净”，PHP 将认为它不是结束标识符而继续寻找。如果在文件结束前也没有找到一个正确的结束标识符，PHP 将会在最后一行产生一个解析错误。<br>Heredocs 结构不能用来初始化类的属性。自 PHP 5.3 起，此限制仅对 heredoc 包含变量时有效。</p>
+<p>Heredoc 结构就象是没有使用双引号的双引号字符串，这就是说在 heredoc 结构中单引号不用被转义，但是上文中列出的转义序列还可以使用。变量将被替换，但在 heredoc 结构中含有复杂的变量时要格外小心。</p>
+<p><strong>Example #2</strong> Heredoc 结构的字符串示例</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"><span class="variable">$str</span> = &lt;&lt;&lt;EOD</span><br><span class="line">Example <span class="keyword">of</span> string</span><br><span class="line">spanning multiple lines</span><br><span class="line">using heredoc syntax.</span><br><span class="line">EOD;</span><br><span class="line"></span><br><span class="line">/* 含有变量的更复杂示例 */</span><br><span class="line">class foo</span><br><span class="line">&#123;</span><br><span class="line">    var <span class="variable">$foo</span>;</span><br><span class="line">    var <span class="variable">$bar</span>;</span><br><span class="line"></span><br><span class="line">    function foo()</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="variable">$this-</span>&gt;foo = <span class="string">'Foo'</span>;</span><br><span class="line">        <span class="variable">$this-</span>&gt;bar = array(<span class="string">'Bar1'</span>, <span class="string">'Bar2'</span>, <span class="string">'Bar3'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable">$foo</span> = new foo();</span><br><span class="line"><span class="variable">$name</span> = <span class="string">'MyName'</span>;</span><br><span class="line"></span><br><span class="line">echo &lt;&lt;&lt;EOT</span><br><span class="line">My name is <span class="string">"$name"</span>. I am printing <span class="keyword">some</span> <span class="variable">$foo-</span>&gt;foo.</span><br><span class="line">Now, I am printing <span class="keyword">some</span> &#123;<span class="variable">$foo-</span>&gt;bar[<span class="number">1</span>]&#125;.</span><br><span class="line">This should print a capital <span class="string">'A'</span>: \x41</span><br><span class="line">EOT;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>以上例程会输出：</p>
+<p>My name is “MyName”. I am printing some Foo.<br>Now, I am printing some Bar2.<br>This should print a capital ‘A’: A  </p>
+<p>也可以把 Heredoc 结构用在函数参数中来传递数据：</p>
+<p><strong>Example #3</strong> Heredoc 结构在参数中的示例</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="preprocessor">&lt;?php</span></span><br><span class="line">var_dump(<span class="keyword">array</span>(<span class="string">&lt;&lt;&lt;EOD</span><br><span class="line">foobar!</span><br><span class="line">EOD</span><br><span class="line">));</span><br><span class="line">?&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p>在 PHP 5.3.0 以后，也可以用 Heredoc 结构来初始化静态变量和类的属性和常量.</p>
+<p><strong>Nowdoc 结构</strong></p>
+<p>就象 heredoc 结构类似于双引号字符串，Nowdoc 结构是类似于单引号字符串的。Nowdoc 结构很象 heredoc 结构，但是 nowdoc 中不进行解析操作。这种结构很适合用于嵌入 PHP 代码或其它大段文本而无需对其中的特殊字符进行转义。与 SGML 的 &lt;![CDATA[ ]]&gt; 结构是用来声明大段的不用解析的文本类似，nowdoc 结构也有相同的特征。</p>
+<p>一个 nowdoc 结构也用和 heredocs 结构一样的标记 &lt;&lt;&lt;， 但是跟在后面的标识符要用单引号括起来，即 &lt;&lt;&lt;’EOT’。Heredoc 结构的所有规则也同样适用于 nowdoc 结构，尤其是结束标识符的规则。</p>
+<p><strong>Example #6</strong> Nowdoc 结构字符串示例</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"><span class="variable">$str</span> = &lt;&lt;&lt;<span class="string">'EOD'</span></span><br><span class="line">Example <span class="keyword">of</span> string</span><br><span class="line">spanning multiple lines</span><br><span class="line">using nowdoc syntax.</span><br><span class="line">EOD;</span><br><span class="line"></span><br><span class="line">/* 含有变量的更复杂的示例 */</span><br><span class="line">class foo</span><br><span class="line">&#123;</span><br><span class="line">    public <span class="variable">$foo</span>;</span><br><span class="line">    public <span class="variable">$bar</span>;</span><br><span class="line"></span><br><span class="line">    function foo()</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="variable">$this-</span>&gt;foo = <span class="string">'Foo'</span>;</span><br><span class="line">        <span class="variable">$this-</span>&gt;bar = array(<span class="string">'Bar1'</span>, <span class="string">'Bar2'</span>, <span class="string">'Bar3'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable">$foo</span> = new foo();</span><br><span class="line"><span class="variable">$name</span> = <span class="string">'MyName'</span>;</span><br><span class="line"></span><br><span class="line">echo &lt;&lt;&lt;<span class="string">'EOT'</span></span><br><span class="line">My name is <span class="string">"$name"</span>. I am printing <span class="keyword">some</span> <span class="variable">$foo-</span>&gt;foo.</span><br><span class="line">Now, I am printing <span class="keyword">some</span> &#123;<span class="variable">$foo-</span>&gt;bar[<span class="number">1</span>]&#125;.</span><br><span class="line">This should not print a capital <span class="string">'A'</span>: \x41</span><br><span class="line">EOT;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>以上例程会输出：</p>
+<p>My name is “$name”. I am printing some $foo-&gt;foo.<br>Now, I am printing some {$foo-&gt;bar[1]}.<br>This should not print a capital ‘A’: \x41  </p>
+<p>Note:<br>不象 heredoc 结构，nowdoc 结构可以用在任意的静态数据环境中，最典型的示例是用来初始化类的属性或常量</p>
+<p><strong>变量解析</strong></p>
+<p>当字符串用双引号或 heredoc 结构定义时，其中的变量将会被解析。</p>
+<p>这里共有两种语法规则：一种简单规则，一种复杂规则。简单的语法规则是最常用和最方便的，它可以用最少的代码在一个 string 中嵌入一个变量，一个 array 的值，或一个 object 的属性。</p>
+<p>复杂规则语法的显著标记是用花括号包围的表达式。</p>
+<ul>
+<li>简单语法</li>
+</ul>
+<p>当 PHP 解析器遇到一个美元符号（$）时，它会和其它很多解析器一样，去组合尽量多的标识以形成一个合法的变量名。可以用花括号来明确变量名的界线。</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"><span class="variable">$juice</span> = <span class="string">"apple"</span>;</span><br><span class="line"></span><br><span class="line">echo <span class="string">"He drank some $juice juice."</span>.PHP_EOL;</span><br><span class="line">// Invalid. <span class="string">"s"</span> is a valid character <span class="keyword">for</span> a variable name, but the variable is <span class="variable">$juice</span>.</span><br><span class="line">echo <span class="string">"He drank some juice made of $juices."</span>;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>以上例程会输出：</p>
+<p>He drank some apple juice.<br>He drank some juice made of .<br>类似的，一个 array 索引或一个 object 属性也可被解析。数组索引要用方括号（]）来表示索引结束的边际，对象属性则是和上述的变量规则相同。</p>
+<p><strong>Example #8</strong> 简单语法示例</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="preprocessor">&lt;?php</span></span><br><span class="line"><span class="variable">$juices</span> = <span class="keyword">array</span>(<span class="string">"apple"</span>, <span class="string">"orange"</span>, <span class="string">"koolaid1"</span> =&gt; <span class="string">"purple"</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">echo</span> <span class="string">"He drank some $juices[0] juice."</span>.PHP_EOL;</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"He drank some $juices[1] juice."</span>.PHP_EOL;</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"He drank some juice made of $juice[0]s."</span>.PHP_EOL; <span class="comment">// Won't work</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">"He drank some $juices[koolaid1] juice."</span>.PHP_EOL;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">people</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$john</span> = <span class="string">"John Smith"</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$jane</span> = <span class="string">"Jane Smith"</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$robert</span> = <span class="string">"Robert Paulsen"</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$smith</span> = <span class="string">"Smith"</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable">$people</span> = <span class="keyword">new</span> people();</span><br><span class="line"></span><br><span class="line"><span class="keyword">echo</span> <span class="string">"$people-&gt;john drank some $juices[0] juice."</span>.PHP_EOL;</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"$people-&gt;john then said hello to $people-&gt;jane."</span>.PHP_EOL;</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"$people-&gt;john's wife greeted $people-&gt;robert."</span>.PHP_EOL;</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"$people-&gt;robert greeted the two $people-&gt;smiths."</span>; <span class="comment">// Won't work</span></span><br><span class="line"><span class="preprocessor">?&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p>以上例程会输出：</p>
+<p>He drank some apple juice.<br>He drank some orange juice.<br>He drank some juice made of s.<br>He drank some purple juice.<br>John Smith drank some apple juice.<br>John Smith then said hello to Jane Smith.<br>John Smith’s wife greeted Robert Paulsen.<br>Robert Paulsen greeted the two .<br>如果想要表达更复杂的结构，请用复杂语法。</p>
+<p><strong>复杂（花括号）语法</strong></p>
+<p>复杂语法不是因为其语法复杂而得名，而是因为它可以使用复杂的表达式。</p>
+<p>任何具有 string 表达的标量变量，数组单元或对象属性都可使用此语法。只需简单地像在 string 以外的地方那样写出表达式，然后用花括号 { 和 } 把它括起来即可。由于 { 无法被转义，只有 $ 紧挨着 { 时才会被识别。可以用 {\$ 来表达 {$。下面的示例可以更好的解释：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="preprocessor">&lt;?php</span></span><br><span class="line"><span class="comment">// 显示所有错误</span></span><br><span class="line">error_reporting(E_ALL);</span><br><span class="line"></span><br><span class="line"><span class="variable">$great</span> = <span class="string">'fantastic'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 无效，输出: This is &#123; fantastic&#125;</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">"This is &#123; $great&#125;"</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 有效，输出： This is fantastic</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">"This is &#123;$great&#125;"</span>;</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"This is $&#123;great&#125;"</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 有效</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">"This square is &#123;$square-&gt;width&#125;00 centimeters broad."</span>; </span><br><span class="line"></span><br><span class="line"><span class="comment">// 有效，只有通过花括号语法才能正确解析带引号的键名</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">"This works: &#123;$arr['key']&#125;"</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 有效</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">"This works: &#123;$arr[4][3]&#125;"</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 这是错误的表达式，因为就象 $foo[bar] 的格式在字符串以外也是错的一样。</span></span><br><span class="line"><span class="comment">// 换句话说，只有在 PHP 能找到常量 foo 的前提下才会正常工作；这里会产生一个</span></span><br><span class="line"><span class="comment">// E_NOTICE (undefined constant) 级别的错误。</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">"This is wrong: &#123;$arr[foo][3]&#125;"</span>; </span><br><span class="line"></span><br><span class="line"><span class="comment">// 有效，当在字符串中使用多重数组时，一定要用括号将它括起来</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">"This works: &#123;$arr['foo'][3]&#125;"</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 有效</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">"This works: "</span> . <span class="variable">$arr</span>[<span class="string">'foo'</span>][<span class="number">3</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">echo</span> <span class="string">"This works too: &#123;$obj-&gt;values[3]-&gt;name&#125;"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">echo</span> <span class="string">"This is the value of the var named $name: &#123;$&#123;$name&#125;&#125;"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">echo</span> <span class="string">"This is the value of the var named by the return value of getName(): &#123;$&#123;getName()&#125;&#125;"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">echo</span> <span class="string">"This is the value of the var named by the return value of \$object-&gt;getName(): &#123;$&#123;$object-&gt;getName()&#125;&#125;"</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 无效，输出： This is the return value of getName(): &#123;getName()&#125;</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">"This is the return value of getName(): &#123;getName()&#125;"</span>;</span><br><span class="line"><span class="preprocessor">?&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p><strong>Note:</strong><br>函数、方法、静态类变量和类常量只有在 PHP 5 以后才可在 {$} 中使用。然而，只有在该字符串被定义的命名空间中才可以将其值作为变量名来访问。只单一使用花括号 ({}) 无法处理从函数或方法的返回值或者类常量以及类静态变量的值。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="preprocessor">&lt;?php</span></span><br><span class="line"><span class="comment">// 显示所有错误</span></span><br><span class="line">error_reporting(E_ALL);</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">beers</span> </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> softdrink = <span class="string">'rootbeer'</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="variable">$ale</span> = <span class="string">'ipa'</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable">$rootbeer</span> = <span class="string">'A &amp; W'</span>;</span><br><span class="line"><span class="variable">$ipa</span> = <span class="string">'Alexander Keith\'s'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 有效，输出： I'd like an A &amp; W</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">"I'd like an &#123;$&#123;beers::softdrink&#125;&#125;\n"</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 也有效，输出： I'd like an Alexander Keith's</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">"I'd like an &#123;$&#123;beers::$ale&#125;&#125;\n"</span>;</span><br><span class="line"><span class="preprocessor">?&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p><strong>有用的函数和运算符</strong> </p>
+<p>字符串可以用 ‘.’（点）运算符连接起来，注意 ‘+’（加号）运算符没有这个功能。更多信息参考字符串运算符。</p>
+<p>对于 string 的操作有很多有用的函数。</p>
+<p>可以参考字符串函数了解大部分函数，高级的查找与替换功能可以参考正则表达式函数或 Perl 兼容正则表达式函数。</p>
+<p>另外还有 URL 字符串函数，也有加密／解密字符串的函数（mcrypt 和 mhash）。</p>
+<p>最后，可以参考字符类型函数。</p>
+<p><strong>转换成字符串</strong> </p>
+<p>一个值可以通过在其前面加上 (string) 或用 strval() 函数来转变成字符串。在一个需要字符串的表达式中，会自动转换为 string。比如在使用函数 echo 或 print 时，或在一个变量和一个 string 进行比较时，就会发生这种转换。类型和类型转换可以更好的解释下面的事情，也可参考函数 settype()。</p>
+<p>一个布尔值 boolean 的 TRUE 被转换成 string 的 “1”。Boolean 的 FALSE 被转换成 “”（空字符串）。这种转换可以在 boolean 和 string 之间相互进行。</p>
+<p>一个整数 integer 或浮点数 float 被转换为数字的字面样式的 string（包括 float 中的指数部分）。使用指数计数法的浮点数（4.1E+6）也可转换。</p>
+<p>Note:<br>在脚本的区域（category LC_NUMERIC）中定义了十进制小数点字符。参见 setlocale()。<br>数组 array 总是转换成字符串 “Array”，因此，echo 和 print 无法显示出该数组的内容。要显示某个单元，可以用 echo $arr[‘foo’] 这种结构。要显示整个数组内容见下文。</p>
+<p>在 PHP 4 中对象 object 总是被转换成字符串 “Object”，如果为了调试原因需要打印出对象的值，请继续阅读下文。为了得到对象的类的名称，可以用 get_class() 函数。自 PHP 5 起，适当时可以用 __toString 方法。</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/PHP/">PHP</a>
+  </div>
+
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/PHP/">PHP</a>
+</div>
+
+
+
+<div class="article-share" id="share">
+
+  <div data-url="http://xtaq.work/2015/09/09/PHP类型（二）/" data-title="PHP类型（二） | xtaq blog" data-tsina="null" class="share clearfix">
+  </div>
+
+</div>
+</footer>   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2015/09/09/PHP类型（三）/" title="PHP类型（三）">
+  <strong>PREVIOUS:</strong><br/>
+  <span>
+  PHP类型（三）</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2015/09/09/PHP类型（一）/"  title="PHP类型（一）">
+ <strong>NEXT:</strong><br/> 
+ <span>PHP类型（一）
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section class="comment">
+	<div class="ds-thread"></div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目錄</strong>
+  
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分類</p>
+		<ul>
+		
+			<li><a href="/categories/PHP/" title="PHP">PHP<sup>6</sup></a></li>
+		
+			<li><a href="/categories/girlfriend/" title="girlfriend">girlfriend<sup>1</sup></a></li>
+		
+			<li><a href="/categories/leetcode/" title="leetcode">leetcode<sup>3</sup></a></li>
+		
+			<li><a href="/categories/python/" title="python">python<sup>1</sup></a></li>
+		
+			<li><a href="/categories/日志/" title="日志">日志<sup>1</sup></a></li>
+		
+			<li><a href="/categories/系统/" title="系统">系统<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">標簽</p>
+		<ul class="clearfix">
+		
+			<li><a href="/tags/PHP/" title="PHP">PHP<sup>6</sup></a></li>
+		
+			<li><a href="/tags/algorithm/" title="algorithm">algorithm<sup>3</sup></a></li>
+		
+			<li><a href="/tags/python/" title="python">python<sup>4</sup></a></li>
+		
+			<li><a href="/tags/开始/" title="开始">开始<sup>1</sup></a></li>
+		
+			<li><a href="/tags/系统/" title="系统">系统<sup>1</sup></a></li>
+		
+			<li><a href="/tags/随想/" title="随想">随想<sup>1</sup></a></li>
+		
+			<li><a href="/tags/随笔/" title="随笔">随笔<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  <div class="rsspart">
+	<a href="null" target="_blank" title="rss">RSS 訂閱</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> 为了成为更好的自己 <br/>
+			My github</p>
+	</section>
+	 
+	<div class="social-font clearfix">
+		
+		
+		
+		<a href="https://github.com/xtaq" target="_blank" title="github"></a>
+		
+		
+		
+	</div>
+		<p class="copyright">Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/A-limon/pacman" target="_blank" title="Pacman">Pacman</a> © 2015 
+		
+		<a href="http://xtaq.work" target="_blank" title="xiang tong">xiang tong</a>
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"xtaq"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+  </body>
+</html>
