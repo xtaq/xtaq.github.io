@@ -4,15 +4,14 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>leetcode 4 Median of Two Sorted Arrays | xtaq blog</title>
+    <title>PHP常量 | xtaq blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="xiang tong">
     
-    <meta name="description" content="Median of Two Sorted Arrays
-求两个排序数组的中位数(长度分别为m, n)， 要求时间复杂度为O(log(m+n))。
-思路
-这是一道非常经典的题。这题更通用的形式是，给定两个已经排序好的数组，找到两者所有元素中第 k 大的元素。O(m + n) 的解法比较直观，直接 me">
+    <meta name="description" content="语法 
+可以用 define() 函数来定义常量，在 PHP 5.3.0 以后，可以使用 const 关键字在类定义之外定义常量。一个常量一旦被定义，就不能再改变或者取消定义。
+常量只能包含标量数据（boolean，integer，float 和 string）。可以定义 resource 常量，但">
     
     
     
@@ -68,15 +67,15 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/08/26/leetcode-4-Median-of-Two-Sorted-Arrays/" title="leetcode 4 Median of Two Sorted Arrays" itemprop="url">leetcode 4 Median of Two Sorted Arrays</a>
+      <a href="/2015/09/09/PHP常量/" title="PHP常量" itemprop="url">PHP常量</a>
   </h1>
   <p class="article-author">By
     
       <a href="http://xtaq.work" title="xiang tong">xiang tong</a>
     </p>
   <p class="article-time">
-    <time datetime="2015-08-25T16:34:57.000Z" itemprop="datePublished">2015-08-26</time>
-    更新日期:<time datetime="2015-08-25T16:41:35.000Z" itemprop="dateModified">2015-08-26</time>
+    <time datetime="2015-09-09T10:21:09.000Z" itemprop="datePublished">2015-09-09</time>
+    更新日期:<time datetime="2015-09-09T11:34:47.000Z" itemprop="dateModified">2015-09-09</time>
     
   </p>
 </header>
@@ -88,36 +87,50 @@
 		
 		</div>
 		
-		<p><strong>Median of Two Sorted Arrays</strong></p>
-<p>求两个排序数组的中位数(长度分别为m, n)， 要求时间复杂度为O(log(m+n))。</p>
-<p><strong>思路</strong></p>
-<p>这是一道非常经典的题。这题更通用的形式是，给定两个已经排序好的数组，找到两者所有元素中第 k 大的元素。O(m + n) 的解法比较直观，直接 merge 两个数组，然后求第 k 大的元素。不过我们仅仅需要第 k 大的元素，是不需要“排序”这么复杂的操作的。可以用一个计数器，记录当前已经找到第 m 大的元素了。同时我们使用两个指针 pA 和 pB，分别指向 A 和 B 数组的第一个元素，使用类似于 merge sort 的原理，如果数组 A 当前元素小，那么 pA++，同时 m++；如果数组 B 当前元素小，那么 pB++，同时 m++。最终当 m 等于 k 的时候，就得到了我们的答案，O(k)时间，O(1) 空间。但是，当 k 很接近 m + n 的时候，这个方法还是 O(m + n) 的。</p>
-<p>有没有更好的方案呢？我们可以考虑从 k 入手。如果我们每次都能够删除一个一定在第 k 大元素之前的元素，那么我们需要进行 k 次。但是如果每次我们都删除一半呢？由于 A 和 B 都是有序的，我们应该充分利用这里面的信息，类似于二分查找，也是充分利用了“有序”。  </p>
-<p>假设 A 和 B 的元素个数都大于 k/2，我们将 A 的第 k/2 个元素（即 A[k/2-1]）和 B 的第 k/2<br>个元素（即 B[k/2-1]）进行比较，有以下三种情况（为了简化这里先假设 k 为偶数，所得到的结论对于 k 是奇数也是成立的）：<br>A[k/2-1] == B[k/2-1]<br>A[k/2-1] &gt; B[k/2-1]<br>A[k/2-1] &lt; B[k/2-1]  </p>
-<p>如果 A[k/2-1] &lt; B[k/2-1]，意味着 A[0] 到 A[k/2-1 的肯定在 A [ B 的 top k 元素的范围内，换句话说，A[k/2-1 不可能大于 A [ B 的第 k 大元素。留给读者证明。因此，我们可以放心的删除 A 数组的这 k/2 个元素。同理，当 A[k/2-1] &gt; B[k/2-1] 时，可以删除 B 数组的 k/2 个元素。当 A[k/2-1] == B[k/2-1] 时，说明找到了第 k 大的元素，直接返回 A[k/2-1] 或 B[k/2-1]即可。因此，我们可以写一个递归函数。那么函数什么时候应该终止呢？</p>
-<p>当 A 或 B 是空时，直接返回 B[k-1] 或 A[k-1]；当 k=1 是，返回 min(A[0], B[0])；当 A[k/2-1] == B[k/2-1] 时，返回 A[k/2-1] 或 B[k/2-1]</p>
-<p><strong>python代码</strong></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">findMedianSortedArrays</span><span class="params">(self, nums1, nums2)</span>:</span></span><br><span class="line">        <span class="string">"""</span><br><span class="line">        :type nums1: List[int]</span><br><span class="line">        :type nums2: List[int]</span><br><span class="line">        :rtype: float</span><br><span class="line">        """</span></span><br><span class="line">        total = len(nums1) + len(nums2)</span><br><span class="line">        <span class="keyword">if</span> total % <span class="number">2</span> != <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> self.findkth(nums1, nums2, total/<span class="number">2</span>+<span class="number">1</span>)</span><br><span class="line">            </span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            a = self.findkth(nums1, nums2, total/<span class="number">2</span>+<span class="number">1</span>)</span><br><span class="line">            b = self.findkth(nums1, nums2, total/<span class="number">2</span>)</span><br><span class="line">            <span class="keyword">return</span> (a+b) / <span class="number">2.0</span></span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">findkth</span><span class="params">(self, nums1, nums2, k)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> len(nums1) &gt; len(nums2):</span><br><span class="line">            <span class="keyword">return</span> self.findkth(nums2, nums1, k)</span><br><span class="line">            </span><br><span class="line">        <span class="keyword">if</span> len(nums1) == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> nums2[k-<span class="number">1</span>]</span><br><span class="line">            </span><br><span class="line">        <span class="keyword">if</span> k == <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">return</span> min(nums1[<span class="number">0</span>], nums2[<span class="number">0</span>])</span><br><span class="line">            </span><br><span class="line">        a = min(k/<span class="number">2</span>, len(nums1))</span><br><span class="line">        b = k - a</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> nums1[a-<span class="number">1</span>] &lt; nums2[b-<span class="number">1</span>]:</span><br><span class="line">            <span class="keyword">return</span> self.findkth(nums1[a:], nums2, k - a)</span><br><span class="line">            </span><br><span class="line">        <span class="keyword">if</span> nums1[a-<span class="number">1</span>] &gt; nums2[b-<span class="number">1</span>]:</span><br><span class="line">            <span class="keyword">return</span> self.findkth(nums1, nums2[b:], k - b)</span><br><span class="line">            </span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> nums1[a-<span class="number">1</span>]</span><br></pre></td></tr></table></figure>
+		<p><strong>语法</strong> </p>
+<p>可以用 define() 函数来定义常量，在 PHP 5.3.0 以后，可以使用 const 关键字在类定义之外定义常量。一个常量一旦被定义，就不能再改变或者取消定义。</p>
+<p>常量只能包含标量数据（boolean，integer，float 和 string）。可以定义 resource 常量，但应尽量避免，因为会造成不可预料的结果。</p>
+<p>可以简单的通过指定其名字来取得常量的值，与变量不同，不应该在常量前面加上 $ 符号。如果常量名是动态的，也可以用函数 constant() 来获取常量的值。用 get_defined_constants() 可以获得所有已定义的常量列表。</p>
+<p><strong>Note:</strong> 常量和（全局）变量在不同的名字空间中。这意味着例如 TRUE 和 $TRUE 是不同的。</p>
+<p>如果使用了一个未定义的常量，PHP 假定想要的是该常量本身的名字，如同用字符串调用它一样（CONSTANT 对应 “CONSTANT”）。此时将发出一个 E_NOTICE 级的错误。参见手册中为什么 $foo[bar] 是错误的（除非事先用 define() 将 bar 定义为一个常量）。如果只想检查是否定义了某常量，用 defined() 函数。</p>
+<p>常量和变量有如下不同：</p>
+<ul>
+<li>常量前面没有美元符号（$）；</li>
+<li>常量只能用 define() 函数定义，而不能通过赋值语句；</li>
+<li>常量可以不用理会变量的作用域而在任何地方定义和访问；</li>
+<li>常量一旦定义就不能被重新定义或者取消定义；</li>
+<li>常量的值只能是标量。</li>
+</ul>
+<p><strong>Example #1</strong> 定义常量</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="preprocessor">&lt;?php</span></span><br><span class="line">define(<span class="string">"CONSTANT"</span>, <span class="string">"Hello world."</span>);</span><br><span class="line"><span class="keyword">echo</span> CONSTANT; <span class="comment">// outputs "Hello world."</span></span><br><span class="line"><span class="keyword">echo</span> Constant; <span class="comment">// 输出 "Constant" 并发出一个提示级别错误信息</span></span><br><span class="line"><span class="preprocessor">?&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p><strong>Example #2</strong> 使用关键字 const 定义常量</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="preprocessor">&lt;?php</span></span><br><span class="line"><span class="comment">// 以下代码在 PHP 5.3.0 后可以正常工作</span></span><br><span class="line"><span class="keyword">const</span> CONSTANT = <span class="string">'Hello World'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">echo</span> CONSTANT;</span><br><span class="line"><span class="preprocessor">?&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p><strong>Note:</strong><br>和使用 define() 来定义常量相反的是，使用 const 关键字定义常量必须处于最顶端的作用区域，因为用此方法是在编译时定义的。这就意味着不能在函数内，循环内以及 if 语句之内用 const 来定义常量。<br>参见类常量。</p>
+<p><strong>魔术常量</strong> </p>
+<p>PHP 向它运行的任何脚本提供了大量的预定义常量。不过很多常量都是由不同的扩展库定义的，只有在加载了这些扩展库时才会出现，或者动态加载后，或者在编译时已经包括进去了。</p>
+<p>有八个魔术常量它们的值随着它们在代码中的位置改变而改变。例如 __LINE__ 的值就依赖于它在脚本中所处的行来决定。这些特殊的常量不区分大小写，如下：</p>
+<p>几个 PHP 的“魔术常量”<br>名称      说明<br>__LINE__    文件中的当前行号。<br>__FILE__    文件的完整路径和文件名。如果用在被包含文件中，则返回被包含的文件名。自 PHP 4.0.2 起，__FILE__ 总是包含一个绝对路径（如果是符号连接，则是解析后的绝对路径），而在此之前的版本有时会包含一个相对路径。<br>__DIR__    文件所在的目录。如果用在被包括文件中，则返回被包括的文件所在的目录。它等价于 dirname(__FILE__)。除非是根目录，否则目录中名不包括末尾的斜杠。（PHP 5.3.0中新增） =<br>__FUNCTION__    函数名称（PHP 4.3.0 新加）。自 PHP 5 起本常量返回该函数被定义时的名字（区分大小写）。在 PHP 4 中该值总是小写字母的。<br>__CLASS__    类的名称（PHP 4.3.0 新加）。自 PHP 5 起本常量返回该类被定义时的名字（区分大小写）。  在 PHP 4 中该值总是小写字母的。类名包括其被声明的作用区域（例如 Foo\Bar）。<br> __CLASS__ 对 trait 也起作用。当用在 trait 方法中时，<strong>CLASS</strong> 是调用 trait 方法的类的名字。<br>__TRAIT__    Trait 的名字（PHP 5.4.0 新加）。自 PHP 5.4 起此常量返回 trait 被定义时的名字（区分大小写）。Trait 名包括其被声明的作用区域（例如 Foo\Bar）。<br>__METHOD__    类的方法名（PHP 5.0.0 新加）。返回该方法被定义时的名字（区分大小写）。<br>__NAMESPACE__    当前命名空间的名称（区分大小写）。此常量是在编译时定义的（PHP 5.3.0 新增）。  </p>
+<p>参见 get_class()，get_object_vars()，file_exists() 和 function_exists()。</p>
   
 	</div>
 		<footer class="article-footer clearfix">
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/algorithm/">algorithm</a><a href="/tags/python/">python</a>
+  <span></span> <a href="/tags/PHP/">PHP</a>
   </div>
 
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/leetcode/">leetcode</a>
+  <a class="article-category-link" href="/categories/PHP/">PHP</a>
 </div>
 
 
 
 <div class="article-share" id="share">
 
-  <div data-url="http://xtaq.work/2015/08/26/leetcode-4-Median-of-Two-Sorted-Arrays/" data-title="leetcode 4 Median of Two Sorted Arrays | xtaq blog" data-tsina="null" class="share clearfix">
+  <div data-url="http://xtaq.work/2015/09/09/PHP常量/" data-title="PHP常量 | xtaq blog" data-tsina="null" class="share clearfix">
   </div>
 
 </div>
@@ -126,19 +139,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2015/08/29/青春的回忆-By-sq/" title="青春的回忆 By sq">
-  <strong>PREVIOUS:</strong><br/>
-  <span>
-  青春的回忆 By sq</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2015/08/25/python-classmethod-and-staticmethod/"  title="python classmethod and staticmethod">
+<a href="/2015/09/09/PHP变量（二）/"  title="PHP变量（二）">
  <strong>NEXT:</strong><br/> 
- <span>python classmethod and staticmethod
+ <span>PHP变量（二）
 </span>
 </a>
 </div>
